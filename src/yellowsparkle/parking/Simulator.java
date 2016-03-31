@@ -9,6 +9,12 @@ public class Simulator {
     private CarQueue exitCarQueue;
     private SimulatorView simulatorView;
 
+    // while loop variables
+    int counter = 0;
+    int endless = 0;
+    int totalTickCount = 10000;
+    //
+
     private int day = 0;
     private int hour = 0;
     private int minute = 0;
@@ -28,6 +34,7 @@ public class Simulator {
         exitCarQueue = new CarQueue();
         simulatorView = new SimulatorView(3, 6, 30);
     }
+
 
     public void run() {
         for (int i = 0; i < 10000; i++) {
