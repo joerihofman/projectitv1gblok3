@@ -11,8 +11,6 @@ public class Main {
      * @param args commandline arguments
      */
     public static void main(String[] args) {
-        //Simulator simulator = new Simulator();
-        //simulator.run();
-        //GUI gui = new GUI();
+        GUI.main(args);
     }
 }

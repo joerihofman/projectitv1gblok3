@@ -9,14 +9,17 @@ public class GarageSimulator {
     private final CarQueue entryQueue;
     private final CarQueue exitQueue;
     private boolean canExit = true;
+    private int tickCount;
 
     public GarageSimulator(Garage garage) {
         this.garage = garage;
         entryQueue = new CarQueue();
         exitQueue = new CarQueue();
+        tickCount = 0;
     }
 
     public void tick() {
+        tickCount++;
         if (canExit) {
             exitQueue.removeCar();
         }
@@ -26,7 +29,7 @@ public class GarageSimulator {
                 garage.addCar(car, garage.getFirstEmptyLocation());
             }
         }
-        garage.getCars().forEach(car -> {
+        garage.forEach(car -> {
             car.tick();
             if (car.getMinutesLeft() < -1) exitQueue.addCar(car);
             garage.removeCar(car.getLocation());
@@ -39,11 +42,20 @@ public class GarageSimulator {
         }
     }
 
+    public void reset() {
+        garage.removeCars();
+        tickCount = 0;
+    }
+
     public boolean canExit() {
         return canExit;
     }
 
     public void setCanExit(boolean canExit) {
         this.canExit = canExit;
+    }
+
+    public int getTickCount() {
+        return tickCount;
     }
 }

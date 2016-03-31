@@ -5,6 +5,7 @@ import yellowsparkle.parking.Location;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.function.Consumer;
 
 public class Garage {
     private int floors;
@@ -15,6 +16,18 @@ public class Garage {
     public Garage(int floors, int rows, int places) {
         assert (floors > 0 && rows > 0 && places > 0);
         cars = new Car[floors][rows][places];
+    }
+
+    public void forEach(Consumer<Car> carConsumer) {
+        for (int floor = 0; floor < floors; floor++) {
+            for (int row = 0; row < rows; row++) {
+                for (int place = 0; place < places; place++) {
+                    if (cars[floor][row][place] == null) {
+                        carConsumer.accept(cars[floor][row][place]);
+                    }
+                }
+            }
+        }
     }
 
     public Location getFirstEmptyLocation() {
@@ -82,6 +95,24 @@ public class Garage {
             }
         }
         return list;
+    }
+
+    public ArrayList<Location> getLocations() {
+        ArrayList<Location> locations = new ArrayList<>();
+        for (int floor = 0; floor < floors; floor++) {
+            for (int row = 0; row < rows; row++) {
+                for (int place = 0; place < places; place++) {
+                    locations.add(new Location(floor, row, place));
+                }
+            }
+        }
+        return locations;
+    }
+
+    public ArrayList<Car> removeCars() {
+        ArrayList<Car> oldCars = getCars();
+        cars = new Car[floors][rows][places];
+        return oldCars;
     }
 
     public int floorCount() {
