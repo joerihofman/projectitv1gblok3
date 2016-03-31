@@ -6,6 +6,7 @@ import yellowsparkle.parking.Location;
 import javax.swing.*;
 import java.awt.*;
 
+@Deprecated
 public class SimulatorView extends JFrame {
     private CarParkView carParkView;
     private int numberOfFloors;
