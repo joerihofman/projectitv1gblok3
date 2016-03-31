@@ -1,5 +1,7 @@
 package yellowsparkle;
 
+import yellowsparkle.parking.Simulator;
+
 /**
  * Generic main starting class
  */
