@@ -5,7 +5,7 @@ public abstract class Car {
     private boolean isPaying;
 
     /**
-     * Constructor for objects of class Car gwn testen
+     * Constructor for objects of class Car
      */
     public Car() {
 
