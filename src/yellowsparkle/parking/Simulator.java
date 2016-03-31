@@ -41,6 +41,7 @@ public class Simulator {
         for (int i = 0; i < 10000; i++) {
             tick();
         }
+
     }
 
     private void tick() {

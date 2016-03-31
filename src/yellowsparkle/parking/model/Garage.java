@@ -14,6 +14,7 @@ public class Garage {
     private Car[][][] cars;
     private ArrayList<Location> locations;
 
+
     public Garage(int floors, int rows, int places) {
         assert (floors > 0 && rows > 0 && places > 0);
         cars = new Car[floors][rows][places];
