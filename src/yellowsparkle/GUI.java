@@ -1,5 +1,7 @@
 package yellowsparkle;
 
+import yellowsparkle.parking.model.GarageSimulator;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -45,7 +47,7 @@ public class GUI {
         buttonOnestep.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Main.simulator.tick();
             }
         });
 
@@ -53,9 +55,11 @@ public class GUI {
         buttonHundredsteps.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Main.simulator.tick(100);
             }
         });
+
+        //labelQueue.setText("In the queue there are " + GarageSimulator.entryQueue.length() + " cars");
     }
 
     public static void main(String[] args) {

@@ -43,6 +43,10 @@ public class GarageSimulator {
         }
     }
 
+    /*public int vertellengte(){
+        return CarQueue.length();
+    }*/
+
     public void reset() {
         garage.removeCars();
         tickCount = 0;
