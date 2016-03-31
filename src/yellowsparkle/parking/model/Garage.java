@@ -16,13 +16,16 @@ public class Garage {
     public Garage(int floors, int rows, int places) {
         assert (floors > 0 && rows > 0 && places > 0);
         cars = new Car[floors][rows][places];
+        this.floors = floors;
+        this.rows = rows;
+        this.places = places;
     }
 
     public void forEach(Consumer<Car> carConsumer) {
         for (int floor = 0; floor < floors; floor++) {
             for (int row = 0; row < rows; row++) {
                 for (int place = 0; place < places; place++) {
-                    if (cars[floor][row][place] == null) {
+                    if (cars[floor][row][place] != null) {
                         carConsumer.accept(cars[floor][row][place]);
                     }
                 }
@@ -47,7 +50,7 @@ public class Garage {
         return floors * rows * places;
     }
 
-    public int usedSpaces() {
+    public int getUsedSpaces() {
         int i = 0;
         for (Car[][] array1 : cars) {
             for (Car[] array2 : array1) {
