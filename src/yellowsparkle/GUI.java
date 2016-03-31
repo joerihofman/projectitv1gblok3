@@ -19,6 +19,8 @@ public class GUI {
 
 
     public GUI() {
+
+        //Pause button
         buttonPause.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -37,7 +39,24 @@ public class GUI {
             }
         });
 
+        //Reset button
         buttonReset.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        //One step button
+        buttonOnestep.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        //100 steps button
+        buttonHundredsteps.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
