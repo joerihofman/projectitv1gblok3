@@ -13,6 +13,7 @@ public class Garage {
     private int places;
     private Car[][][] cars;
 
+
     public Garage(int floors, int rows, int places) {
         assert (floors > 0 && rows > 0 && places > 0);
         cars = new Car[floors][rows][places];

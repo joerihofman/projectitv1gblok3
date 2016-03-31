@@ -49,23 +49,28 @@ public class GarageSimulator {
         entryQueue.addCar(car);
     }
 
+    //return the size of the queue
     public int queueLength(){
         return entryQueue.size();
     }
 
+    //this will remove all the cars from array and reset the tickcount to zero
     public void reset() {
         garage.removeCars();
         tickCount = 0;
     }
 
+
     public boolean canExit() {
         return canExit;
     }
 
+    //checks if the car can exit
     public void setCanExit(boolean canExit) {
         this.canExit = canExit;
     }
 
+    //keeps tracks of total ticks
     public int getTickCount() {
         return tickCount;
     }

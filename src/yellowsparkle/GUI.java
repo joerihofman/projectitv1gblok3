@@ -59,6 +59,7 @@ public class GUI {
     }
 
     public void tick() {
+        //count the queue
         labelQueue.setText("In the queue there are " + Main.simulator.queueLength() + " cars");
     }
 
