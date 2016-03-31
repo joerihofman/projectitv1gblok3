@@ -19,6 +19,7 @@ public class GarageSimulator {
     }
 
     public void tick() {
+        System.out.println("TICK: " + tickCount);
         tickCount++;
         if (canExit) {
             exitQueue.removeCar();

@@ -1,12 +1,12 @@
 package yellowsparkle;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
-/**
- * Created by MSI on 31-3-2016.
- */
 public class GUI {
     private JPanel panel1;
     private JButton buttonReset;
@@ -15,8 +15,6 @@ public class GUI {
     private JLabel labelQueue;
     private JButton buttonPause;
 
-    boolean pause = false;
-
 
     public GUI() {
 
@@ -24,16 +22,12 @@ public class GUI {
         buttonPause.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (pause != true)
-                {
-                    pause = true;
-                    System.out.println("its currently paused ");
-                }
-
-                else
-                {
-                    pause = false;
-                    System.out.println("its currently running ");
+                if (Constants.PAUSE) {
+                    buttonPause.setText("Pause");
+                    Constants.PAUSE = false;
+                } else {
+                    Constants.PAUSE = true;
+                    buttonPause.setText("Resume");
                 }
 
             }
@@ -43,7 +37,7 @@ public class GUI {
         buttonReset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Main.simulator.reset();
             }
         });
 
@@ -67,9 +61,15 @@ public class GUI {
     public static void main(String[] args) {
         JFrame frame = new JFrame("GUI");
         frame.setContentPane(new GUI().panel1);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                Constants.EXIT = true;
+            }
+        });
     }
 
 }
