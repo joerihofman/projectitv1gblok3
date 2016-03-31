@@ -2,6 +2,7 @@ package yellowsparkle.parking;
 
 import java.util.Random;
 
+@Deprecated
 public class Simulator {
 
     private CarQueue entranceCarQueue;
