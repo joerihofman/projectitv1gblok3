@@ -31,15 +31,15 @@ public class Main {
                 simulator.tick();
                 //adds a car each tick
 
-                int r = random.nextInt(2, 1);
+                int r = random.nextInt(2);
 
 
                 if (r == 1) {
-                    simulator.queueCar(new AdHocCar());
+                    simulator.queueCar(new AdHocCar(5));
                 }
                 if (r == 2) {
-                    simulator.queueCar(new AdHocCar());
-                    simulator.queueCar(new AdHocCar());
+                    simulator.queueCar(new AdHocCar(5));
+                    simulator.queueCar(new AdHocCar(6));
                 }
             }
             System.out.println("Main loop tick!");
