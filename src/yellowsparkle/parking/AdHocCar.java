@@ -1,7 +1,7 @@
 package yellowsparkle.parking;
 
 public class AdHocCar extends Car {
-    public AdHocCar() {
-
+    public AdHocCar(int time) {
+        this.setMinutesLeft(time);
     }
 }

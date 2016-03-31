@@ -30,12 +30,14 @@ public class GarageSimulator {
                 garage.addCar(car, garage.getFirstEmptyLocation());
             }
         } else {
-            throw new RuntimeException(garage.totalSpaces() + "\t" + garage.getUsedSpaces());
+
         }
         garage.forEach(car -> {
             car.tick();
-            if (car.getMinutesLeft() < -1) exitQueue.addCar(car);
-            garage.removeCar(car.getLocation());
+            if (car.getMinutesLeft() < -1) {
+                exitQueue.addCar(car);
+                garage.removeCar(car.getLocation());
+            }
         });
     }
 
@@ -43,6 +45,10 @@ public class GarageSimulator {
         for (int i = 0; i < ticks; i++) {
             tick();
         }
+    }
+
+    public Garage getGarage() {
+        return garage;
     }
 
     public void queueCar(Car car) {

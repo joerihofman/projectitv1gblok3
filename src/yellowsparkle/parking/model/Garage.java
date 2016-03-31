@@ -12,6 +12,7 @@ public class Garage {
     private int rows;
     private int places;
     private Car[][][] cars;
+    private ArrayList<Location> locations;
 
     public Garage(int floors, int rows, int places) {
         assert (floors > 0 && rows > 0 && places > 0);
@@ -94,18 +95,24 @@ public class Garage {
         ArrayList<Car> list = new ArrayList<>();
         for (Car[][] array1 : cars) {
             for (Car[] array2 : array1) {
-                Collections.addAll(list, array2);
+                for (Car car : array2) {
+                    if (car != null) {
+                        list.add(car);
+                    }
+                }
             }
         }
         return list;
     }
 
     public ArrayList<Location> getLocations() {
-        ArrayList<Location> locations = new ArrayList<>();
-        for (int floor = 0; floor < floors; floor++) {
-            for (int row = 0; row < rows; row++) {
-                for (int place = 0; place < places; place++) {
-                    locations.add(new Location(floor, row, place));
+        if (locations == null) {
+            locations = new ArrayList<>();
+            for (int floor = 0; floor < floors; floor++) {
+                for (int row = 0; row < rows; row++) {
+                    for (int place = 0; place < places; place++) {
+                        locations.add(new Location(floor, row, place));
+                    }
                 }
             }
         }
