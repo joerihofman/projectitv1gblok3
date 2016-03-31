@@ -13,6 +13,8 @@ public abstract class Car {
 
     }
 
+
+
     public Location getLocation() {
         return location;
     }

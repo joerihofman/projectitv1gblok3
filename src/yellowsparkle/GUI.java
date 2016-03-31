@@ -56,7 +56,6 @@ public class GUI {
             }
         });
 
-
     }
 
     public void tick() {
