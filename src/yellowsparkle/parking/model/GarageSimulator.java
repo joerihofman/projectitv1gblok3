@@ -9,6 +9,7 @@ public class GarageSimulator {
     private final CarQueue entryQueue;
     private final CarQueue exitQueue;
     private boolean canExit = true;
+    private int totalTickCount = 1000;
 
     public GarageSimulator(Garage garage) {
         this.garage = garage;
@@ -33,8 +34,8 @@ public class GarageSimulator {
         });
     }
 
-    public void tick(int ticks) {
-        for (int i = 0; i < ticks; i++) {
+    public void tick() {
+        for (int i = 0; i < totalTickCount; i++) {
             tick();
         }
     }
