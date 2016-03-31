@@ -1,3 +1,5 @@
+package yellowsparkle;
+
 /**
  * Generic main starting class
  */

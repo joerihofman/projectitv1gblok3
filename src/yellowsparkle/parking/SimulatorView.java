@@ -1,3 +1,8 @@
+package yellowsparkle.parking;
+
+import yellowsparkle.parking.Car;
+import yellowsparkle.parking.Location;
+
 import javax.swing.*;
 import java.awt.*;
 
