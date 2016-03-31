@@ -73,7 +73,7 @@ public class Simulator {
 
         // Add the cars to the back of the queue.
         for (int i = 0; i < numberOfCarsPerMinute; i++) {
-            Car car = new AdHocCar();
+            Car car = new AdHocCar(5);
             entranceCarQueue.addCar(car);
         }
 
