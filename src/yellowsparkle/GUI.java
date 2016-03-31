@@ -13,23 +13,21 @@ public class GUI {
     private JButton buttonOnestep;
     private JLabel labelQueue;
     private JButton buttonPause;
+    private JLabel labelTicks;
 
 
     public GUI() {
 
         //Pause button
-        buttonPause.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (Constants.PAUSE) {
-                    buttonPause.setText("Pause");
-                    Constants.PAUSE = false;
-                } else {
-                    Constants.PAUSE = true;
-                    buttonPause.setText("Resume");
-                }
-
+        buttonPause.addActionListener(e -> {
+            if (Constants.PAUSE) {
+                buttonPause.setText("Pause");
+                Constants.PAUSE = false;
+            } else {
+                Constants.PAUSE = true;
+                buttonPause.setText("Resume");
             }
+
         });
 
         //Reset button
@@ -61,7 +59,17 @@ public class GUI {
     public void tick() {
         //count the queue
         labelQueue.setText("In the queue there are " + Main.simulator.queueLength() + " cars");
+        labelTicks.setText("There have been " + Main.simulator.getTickCount() + " ticks");
     }
+
+    //TODO Een alternatieve view;
+    // Hier is joeri bezig voor een alternatieve view...
+    /*public void alternativeView() {
+        labelQueue.setText("In the queue there are " + Main.simulator.queueLength() + " cars");
+        labelTicks.setText("There have been " + Main.simulator.getTickCount() + " ticks");
+    }*/
+
+
 
     public static GUI init() {
         GUI gui = new GUI();
