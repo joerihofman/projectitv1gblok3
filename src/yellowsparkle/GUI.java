@@ -22,12 +22,18 @@ public class GUI {
         buttonPause.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (pause != true) {
+                if (pause != true)
+                {
                     pause = true;
-                } else {
-                    pause = false;
+                    System.out.println("its currently paused ");
                 }
-                System.out.println(pause);
+
+                else
+                {
+                    pause = false;
+                    System.out.println("its currently running ");
+                }
+
             }
         });
 
