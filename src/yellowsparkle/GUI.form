@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="yellowsparkle.GUI">
+  <grid id="27dc6" binding="panel1" default-binding="true" layout-manager="GridLayoutManager" row-count="1" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="787" height="251"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="56b33" class="javax.swing.JButton" binding="buttonReset">
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Reset"/>
+        </properties>
+      </component>
+      <component id="44338" class="javax.swing.JButton" binding="buttonHundredsteps">
+        <constraints>
+          <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="100 steps"/>
+        </properties>
+      </component>
+      <component id="e771b" class="javax.swing.JButton" binding="buttonOnestep">
+        <constraints>
+          <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="1 step"/>
+        </properties>
+      </component>
+      <component id="86758" class="javax.swing.JLabel" binding="labelQueue">
+        <constraints>
+          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="In the queue there are ... cars"/>
+        </properties>
+      </component>
+      <component id="1af4f" class="javax.swing.JButton" binding="buttonPause">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Pause"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
