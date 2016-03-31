@@ -1,5 +1,5 @@
 /**
- * Generic main starting class
+ * Generic main starting class ja
  */
 public class Main {
     /**
