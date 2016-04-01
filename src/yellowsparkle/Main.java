@@ -3,17 +3,15 @@ package yellowsparkle;
 import yellowsparkle.parking.AdHocCar;
 import yellowsparkle.parking.model.Garage;
 import yellowsparkle.parking.model.GarageSimulator;
+
 import java.util.Random;
-
-
-
-import java.awt.*;
 
 /**
  * Generic init starting class
  */
 public class Main {
     public static GarageSimulator simulator;
+
     /**
      * Generic 'init' method
      * @param args commandline arguments
@@ -32,7 +30,6 @@ public class Main {
                 //adds a car each tick
 
                 int r = random.nextInt(2);
-
 
                 if (r == 1) {
                     simulator.queueCar(new AdHocCar(5));
