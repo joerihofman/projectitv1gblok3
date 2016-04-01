@@ -1,7 +1,5 @@
 package yellowsparkle;
 
-import yellowsparkle.gui.ImagePanel;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,11 +13,23 @@ public class GUI {
     private JButton buttonOnestep;
     private JLabel labelQueue;
     private JButton buttonPause;
-    private JPanel imagePanel;
-    private JSplitPane splitPane1;
+    private JLabel labelTicks;
 
 
     public GUI() {
+
+        //Pause button
+        buttonPause.addActionListener(e -> {
+            if (Constants.PAUSE) {
+                buttonPause.setText("Pause");
+                Constants.PAUSE = false;
+            } else {
+                Constants.PAUSE = true;
+                buttonPause.setText("Resume");
+            }
+
+        });
+
         //Reset button
         buttonReset.addActionListener(new ActionListener() {
             @Override
@@ -49,13 +59,20 @@ public class GUI {
     public void tick() {
         //count the queue
         labelQueue.setText("In the queue there are " + Main.simulator.queueLength() + " cars");
-        ((ImagePanel) imagePanel).update(Main.simulator.getGarage().getLocations(), Main.simulator.getGarage().getCars());
-        imagePanel.repaint();
+        labelTicks.setText("There have been " + Main.simulator.getTickCount() + " ticks");
     }
+
+    //TODO Een alternative view;
+    // Hier is joeri bezig voor een alternatieve view...
+    /*public void alternativeView() {
+        labelQueue.setText("In the queue there are " + Main.simulator.queueLength() + " cars");
+        labelTicks.setText("There have been " + Main.simulator.getTickCount() + " ticks");
+    }*/
+
+
 
     public static GUI init() {
         GUI gui = new GUI();
-        gui.panel1.setEnabled(false);
         JFrame frame = new JFrame("GUI");
         frame.setContentPane(gui.panel1);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -70,24 +87,4 @@ public class GUI {
         return gui;
     }
 
-    private void createUIComponents() {
-        imagePanel = new ImagePanel();
-        splitPane1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT) {
-            private final int location = 36;
-
-            {
-                setDividerLocation(location);
-            }
-
-            @Override
-            public int getDividerLocation() {
-                return location;
-            }
-
-            @Override
-            public int getLastDividerLocation() {
-                return location;
-            }
-        };
-    }
 }
