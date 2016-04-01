@@ -1,10 +1,9 @@
 package yellowsparkle;
 
+import yellowsparkle.gui.ImagePanel;
+
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
 public class GUI {
     private JPanel panel1;
@@ -13,6 +12,9 @@ public class GUI {
     private JButton buttonOnestep;
     private JLabel labelQueue;
     private JButton buttonPause;
+    private ImagePanel imagePanel1;
+    private JTabbedPane tabbedPane1;
+    private JPanel simulatorPanel;
     private JLabel labelTicks;
 
 
@@ -53,17 +55,17 @@ public class GUI {
                 Main.simulator.tick(100);
             }
         });
-
     }
 
     public void tick() {
         //count the queue
         labelQueue.setText("In the queue there are " + Main.simulator.queueLength() + " cars");
-        labelTicks.setText("There have been " + Main.simulator.getTickCount() + " ticks");
+        imagePanel1.update(Main.simulator.getGarage().getLocations(), Main.simulator.getGarage().getCars());
+        //labelTicks.setText("There have been " + Main.simulator.getTickCount() + " ticks");
     }
 
     //TODO Een alternative view;
-    // Hier is joeri bezig voor een alternatieve view...
+    // Joeri is busy making an alternative view;
     /*public void alternativeView() {
         labelQueue.setText("In the queue there are " + Main.simulator.queueLength() + " cars");
         labelTicks.setText("There have been " + Main.simulator.getTickCount() + " ticks");
@@ -77,6 +79,7 @@ public class GUI {
         frame.setContentPane(gui.panel1);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.pack();
+        frame.setSize(500, 500);
         frame.setVisible(true);
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -87,4 +90,8 @@ public class GUI {
         return gui;
     }
 
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+        imagePanel1=new ImagePanel();
+    }
 }

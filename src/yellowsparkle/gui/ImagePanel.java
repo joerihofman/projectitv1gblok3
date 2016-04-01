@@ -33,6 +33,7 @@ public class ImagePanel extends JPanel {
     public void update(List<Location> locationList, List<Car> carList) {
         this.locationList = locationList;
         this.carList = carList;
+        this.repaint();
     }
 
     @Override

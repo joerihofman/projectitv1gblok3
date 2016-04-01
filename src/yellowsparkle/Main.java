@@ -10,6 +10,9 @@ import java.util.Random;
  * Generic init starting class
  */
 public class Main {
+
+    public static Random random;
+
     public static GarageSimulator simulator;
     /**
      * Generic 'init' method
@@ -19,16 +22,15 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
 
             //fill in the total floors, rows and places
-        simulator = new GarageSimulator(new Garage(5, 5, 5));
+        simulator = new GarageSimulator(new Garage(1, 3, 5));
         GUI gui = GUI.init();
 
+        random = new Random();
 
         while(!Constants.EXIT) {
             gui.tick();
             if (!Constants.PAUSE) {
                 simulator.tick();
-                //adds a car each tick
-                    simulator.queueCar(new AdHocCar());
                 }
             System.out.println("Main loop tick!");
             Thread.sleep(250);

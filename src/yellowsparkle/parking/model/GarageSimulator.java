@@ -1,5 +1,7 @@
 package yellowsparkle.parking.model;
 
+import yellowsparkle.Main;
+import yellowsparkle.parking.AdHocCar;
 import yellowsparkle.parking.Car;
 import yellowsparkle.parking.CarQueue;
 
@@ -24,17 +26,18 @@ public class GarageSimulator {
         if (canExit) {
             exitQueue.removeCar();
         }
+        entryQueue.addCar(new AdHocCar(Main.random.nextInt(10) + 10));
         if (garage.totalSpaces() > garage.getUsedSpaces()) {
             Car car = entryQueue.removeCar();
-            if (car != null) {
+           if (car != null) {
                 garage.addCar(car, garage.getFirstEmptyLocation());
-            }
+           }
         } else {
 
         }
         garage.forEach(car -> {
             car.tick();
-            if (car.getMinutesLeft() < -1) {
+            if (car.getMinutesLeft() < 1) {
                 exitQueue.addCar(car);
                 garage.removeCar(car.getLocation());
             }
