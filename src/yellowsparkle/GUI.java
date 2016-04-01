@@ -16,10 +16,11 @@ public class GUI {
     private JTabbedPane tabbedPane1;
     private JPanel simulatorPanel;
     private JLabel labelTicks;
+    private JLabel labelTakenSpaces;
+    private JLabel labelFreeSpaces;
 
 
     public GUI() {
-
         //Pause button
         buttonPause.addActionListener(e -> {
             if (Constants.PAUSE) {
@@ -61,7 +62,10 @@ public class GUI {
         //count the queue
         labelQueue.setText("In the queue there are " + Main.simulator.queueLength() + " cars");
         imagePanel1.update(Main.simulator.getGarage().getLocations(), Main.simulator.getGarage().getCars());
-        //labelTicks.setText("There have been " + Main.simulator.getTickCount() + " ticks");
+        //alternative view
+        labelTicks.setText("There have been " + Main.simulator.getTickCount() + " ticks");
+        labelTakenSpaces.setText("There are " + Main.simulator.usedParkingSpaces() + " spaces used");
+        labelFreeSpaces.setText("There are " + Main.simulator.freeParkingSpaces() + " spaces empty");
     }
 
     //TODO Een alternative view;

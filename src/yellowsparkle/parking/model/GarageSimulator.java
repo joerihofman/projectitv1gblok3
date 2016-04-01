@@ -69,6 +69,15 @@ public class GarageSimulator {
         tickCount = 0;
     }
 
+    //Used parking spaces for the GUI
+    public int usedParkingSpaces() {
+        return garage.getUsedSpaces();
+    }
+
+    //Empty parking spaces for the GUI
+    public int freeParkingSpaces() {
+        return (garage.totalSpaces() - garage.getUsedSpaces());
+    }
 
     public boolean canExit() {
         return canExit;
