@@ -62,7 +62,7 @@ public class GUI {
         labelTicks.setText("There have been " + Main.simulator.getTickCount() + " ticks");
     }
 
-    //TODO Een alternatieve view;
+    //TODO Een alternative view;
     // Hier is joeri bezig voor een alternatieve view...
     /*public void alternativeView() {
         labelQueue.setText("In the queue there are " + Main.simulator.queueLength() + " cars");
