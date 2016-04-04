@@ -1,6 +1,6 @@
 package yellowsparkle.gui;
 
-import yellowsparkle.parking.Car;
+import yellowsparkle.parking.model.Car;
 import yellowsparkle.parking.Location;
 
 import javax.imageio.ImageIO;

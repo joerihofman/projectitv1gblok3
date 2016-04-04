@@ -1,6 +1,7 @@
 package yellowsparkle;
 
 import yellowsparkle.gui.ImagePanel;
+import yellowsparkle.parking.simulation.ParkingException;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -45,7 +46,11 @@ public class GUI {
         buttonOnestep.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main.simulator.tick();
+                try {
+                    Main.simulator.tick();
+                } catch (ParkingException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
 
@@ -53,7 +58,11 @@ public class GUI {
         buttonHundredsteps.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main.simulator.tick(100);
+                try {
+                    Main.simulator.tick(100);
+                } catch (ParkingException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
     }

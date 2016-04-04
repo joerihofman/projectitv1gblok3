@@ -1,10 +1,8 @@
 package yellowsparkle.parking.model;
 
-import yellowsparkle.parking.Car;
 import yellowsparkle.parking.Location;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.function.Consumer;
 
 public class Garage {

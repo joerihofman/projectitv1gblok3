@@ -1,8 +1,9 @@
 package yellowsparkle;
 
-import yellowsparkle.parking.AdHocCar;
 import yellowsparkle.parking.model.Garage;
-import yellowsparkle.parking.model.GarageSimulator;
+import yellowsparkle.parking.simulation.Simulator;
+import yellowsparkle.parking.simulation.ParkingException;
+
 import java.util.Random;
 
 
@@ -13,16 +14,14 @@ public class Main {
 
     public static Random random;
 
-    public static GarageSimulator simulator;
+    public static Simulator simulator;
     /**
      * Generic 'init' method
      * @param args commandline arguments
      */
-
-    public static void main(String[] args) throws InterruptedException {
-
+    public static void main(String[] args) throws InterruptedException, ParkingException {
             //fill in the total floors, rows and places
-        simulator = new GarageSimulator(new Garage(1, 3, 5));
+        simulator = new Simulator(new Garage(1, 3, 5));
         GUI gui = GUI.init();
 
         random = new Random();
@@ -30,8 +29,8 @@ public class Main {
         while(!Constants.EXIT) {
             gui.tick();
             if (!Constants.PAUSE) {
-                simulator.tick();
-                }
+                simulator.tick();   // TODO: Deal with parking exceptions
+            }
             System.out.println("Main loop tick!");
             Thread.sleep(250);
         }

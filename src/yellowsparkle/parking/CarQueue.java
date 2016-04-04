@@ -1,5 +1,7 @@
 package yellowsparkle.parking;
 
+import yellowsparkle.parking.model.Car;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
