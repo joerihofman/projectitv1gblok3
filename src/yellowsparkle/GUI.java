@@ -60,16 +60,16 @@ public class GUI {
 
     public void tick() {
         //count the queue
-        labelQueue.setText("In the queue there are " + Main.simulator.queueLength() + " cars");
         imagePanel1.update(Main.simulator.getGarage().getLocations(), Main.simulator.getGarage().getCars());
-        //alternative view
+        //alternative text view
+        labelQueue.setText("In the queue there are " + Main.simulator.queueLength() + " cars");
         labelTicks.setText("There have been " + Main.simulator.getTickCount() + " ticks");
         labelTakenSpaces.setText("There are " + Main.simulator.usedParkingSpaces() + " spaces used");
         labelFreeSpaces.setText("There are " + Main.simulator.freeParkingSpaces() + " spaces empty");
     }
 
-    //TODO Een alternative view;
-    // Joeri is busy making an alternative view;
+    //TODO Three new alternative views, piechart or graph etc...;
+    // Joeri is busy making an alternative view :( ;
     /*public void alternativeView() {
         labelQueue.setText("In the queue there are " + Main.simulator.queueLength() + " cars");
         labelTicks.setText("There have been " + Main.simulator.getTickCount() + " ticks");
