@@ -5,14 +5,15 @@ package yellowsparkle.Piechart;
  */
 import javax.swing.*;
 
-public class MakePiechart  {
+
+public class CreatePiechart {
     private Model model;
     private JFrame screen;
     private View countview;
     private View pieview;
     private Controller controller;
 
-    public MakePiechart() {
+    public CreatePiechart() {
         model=new Model();
         controller=new Controller(model);
         countview=new CountView(model);

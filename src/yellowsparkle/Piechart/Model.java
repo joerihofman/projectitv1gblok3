@@ -2,7 +2,11 @@ package yellowsparkle.Piechart;
 
 /**
  * Created by MSI on 5-4-2016.
+ *
+ * Model for the piechart
  */
+import yellowsparkle.Main;
+
 import java.util.*;
 
 public class Model implements Runnable {
@@ -12,10 +16,12 @@ public class Model implements Runnable {
 
     public Model() {
         views=new ArrayList<View>();
+        for(View v: views) v.updateView();
+        new Thread(this).start();
     }
 
     public int getAantal() {
-        return aantal;
+        return Main.simulator.usedParkingSpaces();
     }
 
     public void setAantal(int aantal) {
