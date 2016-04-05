@@ -128,6 +128,7 @@ public class Simulator {
     public void reset() {
         garage.removeCars();
         tickCount = 0;
+        soldTickets = 0;
     }
 
     //Used parking spaces for the GUI
