@@ -19,6 +19,7 @@ public class GUI {
     private JLabel labelTicks;
     private JLabel labelTakenSpaces;
     private JLabel labelFreeSpaces;
+    private JLabel labelSoldTickets;
 
 
     public GUI() {
@@ -75,6 +76,7 @@ public class GUI {
         labelTicks.setText("There have been " + Main.simulator.getTickCount() + " ticks");
         labelTakenSpaces.setText("There are " + Main.simulator.usedParkingSpaces() + " spaces used");
         labelFreeSpaces.setText("There are " + Main.simulator.freeParkingSpaces() + " spaces empty");
+        labelSoldTickets.setText("There are " +Main.simulator.getSoldTickets() + " normal tickets sold");
     }
 
     //TODO Three new alternative views, piechart or graph etc...;

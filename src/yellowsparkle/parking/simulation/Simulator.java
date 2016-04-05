@@ -17,12 +17,14 @@ public class Simulator {
     private int tickCount;
     private int entryPerTick = 1;
     private int exitPerTick = 3;
+    int ticketSold = 0;
 
     public Simulator(Garage garage) {
         this.garage = garage;
         entryQueue = new CarQueue();
         exitQueue = new CarQueue();
         tickCount = 0;
+
     }
 
     public void tick() throws ParkingException {
@@ -49,6 +51,7 @@ public class Simulator {
                                 if (spot != null) {
                                     ticket.setStart(new Date());
                                     garage.addCar(car, spot);
+                                    ticketSold++;
                                 } else {
                                     isValid = false;
                                 }
@@ -107,10 +110,17 @@ public class Simulator {
         return entryQueue.size();
     }
 
+    //return sold normal tickets
+    public int getSoldTickets()
+    {
+        return ticketSold;
+    }
+
     //this will remove all the cars from array and reset the tickcount to zero
     public void reset() {
         garage.removeCars();
         tickCount = 0;
+        ticketSold = 0;
     }
 
     //Used parking spaces for the GUI
