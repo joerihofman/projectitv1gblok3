@@ -141,6 +141,11 @@ public class Simulator {
         return (garage.totalSpaces() - garage.getUsedSpaces());
     }
 
+    //Total parking spaces for Piechart
+    public int totalParkingSpaces(){
+        return garage.totalSpaces();
+    }
+
     public boolean canExit() {
         return canExit;
     }
