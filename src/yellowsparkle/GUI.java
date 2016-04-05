@@ -54,7 +54,7 @@ public class GUI {
             }
         });
 
-        //100 steps button
+        //100 steps button extra
         buttonHundredsteps.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
