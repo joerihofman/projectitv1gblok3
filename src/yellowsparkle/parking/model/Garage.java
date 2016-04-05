@@ -79,6 +79,8 @@ public class Garage {
         return car;
     }
 
+
+
     public boolean validateLocation(Location location) {
         return (cars.length > location.getFloor()) &&
                 (cars[location.getFloor()].length > location.getRow()) &&
