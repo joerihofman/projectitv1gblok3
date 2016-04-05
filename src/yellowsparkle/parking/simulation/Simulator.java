@@ -48,7 +48,12 @@ public class Simulator {
                             case REGULAR:
                                 if (spot != null) {
                                     ticket.setStart(new Date());
-                                    garage.addCar(car, spot);
+                                        if (entryQueue.size() > 2) {
+                                            garage.addCar(car, spot);
+                                            garage.addCar(car, spot);
+                                        } else {
+                                            garage.addCar(car, spot);
+                                        }
                                 } else {
                                     isValid = false;
                                 }
@@ -80,7 +85,8 @@ public class Simulator {
                         }
                     }
                     if (!isValid) {
-                        exitQueue.addCar(car);
+                        garage.removeCar(car.getLocation());
+                       // exitQueue.addCar(car);
                     }
                 }
             }
