@@ -65,6 +65,7 @@ public class Garage {
     public boolean addCar(Car car, Location location) {
         Car currentCar = getCarInSlot(location);
         if (currentCar == null) {
+            car.setStatus(Car.Status.PARK);
             cars[location.getFloor()][location.getRow()][location.getPlace()] = car;
             car.setLocation(location);
             return true;

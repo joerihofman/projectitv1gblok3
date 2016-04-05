@@ -40,6 +40,9 @@ public class ImagePanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         locationList.forEach(location -> g.drawImage(parkImage, location.getRow()*30, location.getPlace()*30 + location.getFloor() * 100, null));
-        carList.forEach(car -> g.drawImage(carImage, car.getLocation().getRow()*30, car.getLocation().getPlace()*30 + car.getLocation().getFloor() * 100, null));
+        carList.forEach(car -> {
+            g.drawImage(carImage, car.getLocation().getRow() * 30, car.getLocation().getPlace() * 30 + car.getLocation().getFloor() * 100, null);
+            g.drawChars(String.valueOf(car.getLifespan()).toCharArray(), 0, 1, car.getLocation().getRow() * 30, car.getLocation().getPlace() * 30 + car.getLocation().getFloor() * 100 + 12);
+        });
     }
 }

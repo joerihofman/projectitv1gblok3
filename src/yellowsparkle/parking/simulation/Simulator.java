@@ -1,5 +1,6 @@
 package yellowsparkle.parking.simulation;
 
+import yellowsparkle.Main;
 import yellowsparkle.parking.CarQueue;
 import yellowsparkle.parking.Location;
 import yellowsparkle.parking.model.Car;
@@ -33,10 +34,15 @@ public class Simulator {
         tickCount++;
         if (canExit) {
             for (int i = 0; i < exitPerTick; i++) {
-                exitQueue.removeCar();
+                Car car = exitQueue.removeCar();
+                if (car != null) garage.removeCar(car.getLocation());
             }
         }
-        entryQueue.addCar(new Car(new Ticket(TicketType.REGULAR)));
+        entryQueue.addCar(new Car(status -> {
+            if (status == Car.Status.PARK && (Main.random.nextInt(32) < 4)) return Car.Status.EXIT_WAIT;
+            else return status;
+        },
+        new Ticket(TicketType.REGULAR)));
         for (int i = 0; i < entryPerTick; i++) {
             if (garage.totalSpaces() > garage.getUsedSpaces()) {
                 Car car = entryQueue.removeCar();
@@ -83,12 +89,19 @@ public class Simulator {
                         }
                     }
                     if (!isValid) {
+                        car.setStatus(Car.Status.EXIT_QUEUE);
                         exitQueue.addCar(car);
                     }
                 }
             }
         }
-        garage.forEach(Car::tick);
+        garage.forEach(car -> {
+            car.tick();
+            if (car.getStatus() == Car.Status.EXIT_WAIT) {
+                car.setStatus(Car.Status.EXIT_QUEUE);
+                exitQueue.addCar(car);
+            }
+        });
     }
 
     public void tick(int ticks) throws ParkingException {
