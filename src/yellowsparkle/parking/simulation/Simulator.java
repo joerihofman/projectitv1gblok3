@@ -19,7 +19,7 @@ public class Simulator {
     private int entryPerTick = 1;
     private int exitPerTick = 3;
     int ticketSold = 0;
-    private String soldTickets;
+    private int soldTickets;
 
     public Simulator(Garage garage) {
         this.garage = garage;
@@ -155,7 +155,7 @@ public class Simulator {
         return tickCount;
     }
 
-    public String getSoldTickets() {
+    public int getSoldTickets() {
         return soldTickets;
     }
 }
