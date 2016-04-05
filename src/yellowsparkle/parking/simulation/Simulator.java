@@ -17,6 +17,7 @@ public class Simulator {
     private int tickCount;
     private int entryPerTick = 1;
     private int exitPerTick = 3;
+    private int soldTickets = 0;
 
     public Simulator(Garage garage) {
         this.garage = garage;
@@ -50,9 +51,14 @@ public class Simulator {
                                     ticket.setStart(new Date());
                                         if (entryQueue.size() > 2) {
                                             garage.addCar(car, spot);
+                                            soldTickets++;
+
                                             garage.addCar(car, spot);
+                                            soldTickets++;
+
                                         } else {
                                             garage.addCar(car, spot);
+                                            soldTickets++;
                                         }
                                 } else {
                                     isValid = false;
@@ -100,12 +106,17 @@ public class Simulator {
         }
     }
 
-    public Garage getGarage() {
-        return garage;
-    }
+        public Garage getGarage() {
+            return garage;
+        }
 
-    public void queueCar(Car car) {
-        entryQueue.addCar(car);
+        public void queueCar(Car car) {
+            entryQueue.addCar(car);
+        }
+    // Returns total sold tickets
+    public int getSoldTickets()
+    {
+        return soldTickets;
     }
 
     //return the size of the queue
