@@ -123,12 +123,6 @@ public class Simulator {
         return entryQueue.size();
     }
 
-    //return sold normal tickets
-    public int getSoldTickets()
-    {
-        return ticketSold;
-    }
-
     //this will remove all the cars from array and reset the tickcount to zero
     public void reset() {
         garage.removeCars();
