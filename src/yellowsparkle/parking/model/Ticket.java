@@ -2,9 +2,6 @@ package yellowsparkle.parking.model;
 
 import java.util.Date;
 
-/**
- * Created by MSI on 4-4-2016.
- */
 public class Ticket {
 
     private TicketType type;

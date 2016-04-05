@@ -1,4 +1,4 @@
-package yellowsparkle.parking;
+package yellowsparkle.parking.simulation;
 
 import yellowsparkle.parking.model.Car;
 

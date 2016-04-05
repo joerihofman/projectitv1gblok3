@@ -1,10 +1,8 @@
 package yellowsparkle.parking.model;
 
-import yellowsparkle.parking.Location;
-
 public class Car {
 
-    private Location location;
+    private ParkingSlot parkingSlot;
     private Ticket[] tickets;
     private Status status;
     private CarDecision decision;
@@ -19,12 +17,12 @@ public class Car {
         this.lifespan = 0;
     }
 
-    public Location getLocation() {
-        return location;
+    public ParkingSlot getParkingSlot() {
+        return parkingSlot;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setParkingSlot(ParkingSlot parkingSlot) {
+        this.parkingSlot = parkingSlot;
     }
 
     public void tick() {

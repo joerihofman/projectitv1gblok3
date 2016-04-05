@@ -70,13 +70,13 @@ public class GUI {
 
     public void tick() {
         //count the queue
-        imagePanel1.update(Main.simulator.getGarage().getLocations(), Main.simulator.getGarage().getCars());
+        imagePanel1.update(Main.simulator.getGarage().getParkingSlots(), Main.simulator.getGarage().getCars());
         //alternative text view
         labelQueue.setText("In the queue there are " + Main.simulator.queueLength() + " cars");
         labelTicks.setText("There have been " + Main.simulator.getTickCount() + " ticks");
         labelTakenSpaces.setText("There are " + Main.simulator.usedParkingSpaces() + " spaces used");
         labelFreeSpaces.setText("There are " + Main.simulator.freeParkingSpaces() + " spaces empty");
-        labelSoldTickets.setText("There are " +Main.simulator.getSoldTickets() + " normal tickets sold");
+        labelSoldTickets.setText("There are " + Main.simulator.getSoldTickets() + " normal tickets sold");
     }
 
     //TODO Three new alternative views, piechart or graph etc...;

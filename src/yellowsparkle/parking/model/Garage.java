@@ -1,96 +1,63 @@
 package yellowsparkle.parking.model;
 
-import yellowsparkle.parking.Location;
-
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class Garage {
-    private int floors;
-    private int rows;
-    private int places;
-    private Car[][][] cars;
-    private ArrayList<Location> locations;
+    private HashMap<Position, ParkingSlot> parkingSlots;
 
 
-    public Garage(int floors, int rows, int places) {
-        assert (floors > 0 && rows > 0 && places > 0);
-        cars = new Car[floors][rows][places];
-        this.floors = floors;
-        this.rows = rows;
-        this.places = places;
+    public Garage(ArrayList<ParkingSlot> slots) {
+        this.parkingSlots = new HashMap<>();
+        slots.forEach(parkingSlot -> parkingSlots.put(parkingSlot.getPosition(), parkingSlot));
     }
 
-    public void forEach(Consumer<Car> carConsumer) {
-        for (int floor = 0; floor < floors; floor++) {
-            for (int row = 0; row < rows; row++) {
-                for (int place = 0; place < places; place++) {
-                    if (cars[floor][row][place] != null) {
-                        carConsumer.accept(cars[floor][row][place]);
-                    }
-                }
-            }
+    public void forEach(Consumer<ParkingSlot> slotConsumer) {
+        parkingSlots.values().forEach(slotConsumer);
+    }
+
+    public ParkingSlot getFirstEmptyLocation() {
+        List<ParkingSlot> emptyLocations = getEmptyLocations();
+        if (emptyLocations.size() > 0) {
+            return emptyLocations.get(0);
+        } else {
+            return null;
         }
     }
 
-    public Location getFirstEmptyLocation() {
-        for (int floor = 0; floor < floors; floor++) {
-            for (int row = 0; row < rows; row++) {
-                for (int place = 0; place < places; place++) {
-                    if (cars[floor][row][place] == null) {
-                        return new Location(floor, row, place);
-                    }
-                }
-            }
-        }
-        return null;
+    public List<ParkingSlot> getEmptyLocations() {
+        return parkingSlots.values().stream().filter(ParkingSlot::isEmpty).collect(Collectors.toList());
     }
 
     public int totalSpaces() {
-        return floors * rows * places;
+        return parkingSlots.size();
     }
 
     public int getUsedSpaces() {
-        int i = 0;
-        for (Car[][] array1 : cars) {
-            for (Car[] array2 : array1) {
-                for (Car car : array2) {
-                    if (car != null) i++;
-                }
-            }
-        }
-        return i;
+        return (int) parkingSlots.values().stream().filter(ParkingSlot::isEmpty).count();
     }
 
-    public boolean addCar(Car car, Location location) {
-        Car currentCar = getCarInSlot(location);
-        if (currentCar == null) {
-            car.setStatus(Car.Status.PARK);
-            cars[location.getFloor()][location.getRow()][location.getPlace()] = car;
-            car.setLocation(location);
-            return true;
-        } else {
-            return false;
-        }
+    public Car addCar(Car car, Position position) {
+        return parkingSlots.get(position).setCar(car);
     }
 
-    public Car removeCar(Location location) {
-        Car car = cars[location.getFloor()][location.getRow()][location.getPlace()];
-        cars[location.getFloor()][location.getRow()][location.getPlace()] = null;
-        return car;
+    public Car removeCar(Position position) {
+        return parkingSlots.get(position).removeCar();
     }
 
 
 
-    public boolean validateLocation(Location location) {
-        return (cars.length > location.getFloor()) &&
-                (cars[location.getFloor()].length > location.getRow()) &&
-                (cars[location.getFloor()][location.getRow()].length > location.getPlace());
+    public boolean hasPosition(Position position) {
+        return parkingSlots.containsKey(position);
     }
 
-    public Car getCarInSlot(Location location) {
-        if (!validateLocation(location)) throw new IllegalArgumentException("Invalid location!");
-        return cars[location.getFloor()][location.getRow()][location.getPlace()];
+    public Car getCarInSlot(ParkingSlot parkingSlot) {
+        if (!validateLocation(parkingSlot)) throw new IllegalArgumentException("Invalid parkingSlot!");
+        return cars[parkingSlot.getFloor()][parkingSlot.getRow()][parkingSlot.getPlace()];
     }
 
     public ArrayList<Car> getCars() {
@@ -107,18 +74,18 @@ public class Garage {
         return list;
     }
 
-    public ArrayList<Location> getLocations() {
-        if (locations == null) {
-            locations = new ArrayList<>();
+    public ArrayList<ParkingSlot> getParkingSlots() {
+        if (parkingSlots == null) {
+            parkingSlots = new ArrayList<>();
             for (int floor = 0; floor < floors; floor++) {
                 for (int row = 0; row < rows; row++) {
                     for (int place = 0; place < places; place++) {
-                        locations.add(new Location(floor, row, place));
+                        parkingSlots.add(new ParkingSlot(floor, row, place));
                     }
                 }
             }
         }
-        return locations;
+        return parkingSlots;
     }
 
     public ArrayList<Car> removeCars() {

@@ -1,7 +1,7 @@
 package yellowsparkle.gui;
 
 import yellowsparkle.parking.model.Car;
-import yellowsparkle.parking.Location;
+import yellowsparkle.parking.model.ParkingSlot;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -12,14 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ImagePanel extends JPanel {
-    private List<Location> locationList;
+    private List<ParkingSlot> parkingSlotList;
     private List<Car> carList;
     private BufferedImage parkImage;
     private BufferedImage carImage;
 
     @SuppressWarnings("ConstantConditions")
     public ImagePanel() {
-        locationList = new ArrayList<>();
+        parkingSlotList = new ArrayList<>();
         carList = new ArrayList<>();
         try {
             parkImage = ImageIO.read(this.getClass().getClassLoader().getResource("park.png"));
@@ -30,8 +30,8 @@ public class ImagePanel extends JPanel {
         }
     }
 
-    public void update(List<Location> locationList, List<Car> carList) {
-        this.locationList = locationList;
+    public void update(List<ParkingSlot> parkingSlotList, List<Car> carList) {
+        this.parkingSlotList = parkingSlotList;
         this.carList = carList;
         this.repaint();
     }
@@ -39,10 +39,10 @@ public class ImagePanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        locationList.forEach(location -> g.drawImage(parkImage, location.getRow()*30, location.getPlace()*30 + location.getFloor() * 100, null));
+        parkingSlotList.forEach(location -> g.drawImage(parkImage, location.getRow()*30, location.getPlace()*30 + location.getFloor() * 100, null));
         carList.forEach(car -> {
-            g.drawImage(carImage, car.getLocation().getRow() * 30, car.getLocation().getPlace() * 30 + car.getLocation().getFloor() * 100, null);
-            g.drawChars(String.valueOf(car.getLifespan()).toCharArray(), 0, 1, car.getLocation().getRow() * 30, car.getLocation().getPlace() * 30 + car.getLocation().getFloor() * 100 + 12);
+            g.drawImage(carImage, car.getParkingSlot().getRow() * 30, car.getParkingSlot().getPlace() * 30 + car.getParkingSlot().getFloor() * 100, null);
+            g.drawChars(String.valueOf(car.getLifespan()).toCharArray(), 0, 1, car.getParkingSlot().getRow() * 30, car.getParkingSlot().getPlace() * 30 + car.getParkingSlot().getFloor() * 100 + 12);
         });
     }
 }

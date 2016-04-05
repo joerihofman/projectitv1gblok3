@@ -1,8 +1,7 @@
 package yellowsparkle.parking.simulation;
 
 import yellowsparkle.Main;
-import yellowsparkle.parking.CarQueue;
-import yellowsparkle.parking.Location;
+import yellowsparkle.parking.model.ParkingSlot;
 import yellowsparkle.parking.model.Car;
 import yellowsparkle.parking.model.Garage;
 import yellowsparkle.parking.model.Ticket;
@@ -36,7 +35,7 @@ public class Simulator {
         if (canExit) {
             for (int i = 0; i < exitPerTick; i++) {
                 Car car = exitQueue.removeCar();
-                if (car != null) garage.removeCar(car.getLocation());
+                if (car != null) garage.removeCar(car.getParkingSlot());
             }
         }
         entryQueue.addCar(new Car(status -> {
@@ -52,7 +51,7 @@ public class Simulator {
                     Ticket[] tickets = car.getTickets();
                     for(Ticket ticket : tickets) {
 
-                        Location spot = garage.getFirstEmptyLocation();
+                        ParkingSlot spot = garage.getFirstEmptyLocation();
                         switch(ticket.getType()) {
                             case REGULAR:
                                 if (spot != null) {
