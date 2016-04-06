@@ -8,9 +8,10 @@ public class Position {
     private final int floor;
     private final int row;
     private final int place;
-    private final static int prime = 31;
     private int renderX;
     private int renderY;
+
+    private final static int prime = 31;
 
     /**
      * Constructor for Position
@@ -73,17 +74,6 @@ public class Position {
     }
 
     /**
-     * Override for equals to match
-     *
-     * @param o object to compare against
-     * @return If the object is a position pointing at the same space
-     */
-    @Override
-    public boolean equals(Object o) {
-        return o != null && o instanceof Position && ((Position) o).building.equals(building) && ((Position) o).floor == floor && ((Position) o).row == row && ((Position) o).place == place;
-    }
-
-    /**
      * toString override
      *
      * @return String representation of this position
@@ -99,7 +89,18 @@ public class Position {
      */
     @Override
     public int hashCode() {
-        return ((((building.hashCode() * prime + floor) * prime + row) * prime) + place) * prime;
+        return (((building.hashCode() * prime + floor) * prime + row) * prime + place) * prime;
+    }
+
+    /**
+     * Override for equals to match
+     *
+     * @param o object to compare against
+     * @return If the object is a position pointing at the same space
+     */
+    @Override
+    public boolean equals(Object o) {
+        return o != null && o instanceof Position && ((Position) o).building.equals(building) && ((Position) o).floor == floor && ((Position) o).row == row && ((Position) o).place == place;
     }
 
     /**

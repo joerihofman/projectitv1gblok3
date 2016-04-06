@@ -9,10 +9,11 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class ImagePanel extends JPanel {
-    private List<ParkingSlot> parkingSlotList;
+    private Collection<ParkingSlot> parkingSlotList;
     private List<Car> carList;
     private BufferedImage parkImage;
     private BufferedImage carImage;
@@ -30,7 +31,7 @@ public class ImagePanel extends JPanel {
         }
     }
 
-    public void update(List<ParkingSlot> parkingSlotList, List<Car> carList) {
+    public void update(Collection<ParkingSlot> parkingSlotList, List<Car> carList) {
         this.parkingSlotList = parkingSlotList;
         this.carList = carList;
         this.repaint();
@@ -39,10 +40,11 @@ public class ImagePanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        parkingSlotList.forEach(location -> g.drawImage(parkImage, location.getRow()*30, location.getPlace()*30 + location.getFloor() * 100, null));
-        carList.forEach(car -> {
-            g.drawImage(carImage, car.getParkingSlot().getRow() * 30, car.getParkingSlot().getPlace() * 30 + car.getParkingSlot().getFloor() * 100, null);
-            g.drawChars(String.valueOf(car.getLifespan()).toCharArray(), 0, 1, car.getParkingSlot().getRow() * 30, car.getParkingSlot().getPlace() * 30 + car.getParkingSlot().getFloor() * 100 + 12);
+        parkingSlotList.forEach(parkingSlot -> {
+            g.drawImage(parkImage, parkingSlot.getPosition().getRenderX(), parkingSlot.getPosition().getRenderY(), null);
+            if (!parkingSlot.isEmpty()) {
+                g.drawImage(carImage, parkingSlot.getPosition().getRenderX(), parkingSlot.getPosition().getRenderY(), null);
+            }
         });
     }
 }

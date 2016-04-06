@@ -5,6 +5,7 @@ import yellowsparkle.parking.model.Car;
 import java.util.LinkedList;
 import java.util.Queue;
 
+@Deprecated
 public class CarQueue {
     private Queue<Car> queue = new LinkedList<>();
 

@@ -1,7 +1,6 @@
 package yellowsparkle.parking.model;
 
 public class ParkingSlot {
-
     private Position position;
     private Car car;
 
@@ -74,6 +73,7 @@ public class ParkingSlot {
     public Car setCar(Car car) {
         Car oldCar = this.car;
         this.car = car;
+        car.setStatus(Car.Status.PARK);
         return oldCar;
     }
 }

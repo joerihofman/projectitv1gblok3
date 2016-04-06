@@ -7,12 +7,15 @@ import yellowsparkle.parking.model.Garage;
 import yellowsparkle.parking.model.Ticket;
 import yellowsparkle.parking.model.Ticket.TicketType;
 
+import java.util.ArrayDeque;
 import java.util.Date;
+import java.util.Deque;
+import java.util.Queue;
 
 public class Simulator {
     private Garage garage;
-    private final CarQueue entryQueue;
-    private final CarQueue exitQueue;
+    private final Deque<Car> entryQueue;
+    private final Deque<ParkingSlot> exitQueue;
     private boolean canExit = true;
     private int tickCount;
     private int entryPerTick = 1;
@@ -22,8 +25,8 @@ public class Simulator {
 
     public Simulator(Garage garage) {
         this.garage = garage;
-        entryQueue = new CarQueue();
-        exitQueue = new CarQueue();
+        entryQueue = new ArrayDeque<>();
+        exitQueue = new ArrayDeque<>();
         tickCount = 0;
 
     }
@@ -32,54 +35,45 @@ public class Simulator {
         Date now = new Date();
         System.out.println("TICK: " + tickCount);
         tickCount++;
+
         if (canExit) {
             for (int i = 0; i < exitPerTick; i++) {
-                Car car = exitQueue.removeCar();
-                if (car != null) garage.removeCar(car.getParkingSlot());
+                ParkingSlot slot = exitQueue.pollFirst();
+                if (slot != null) slot.removeCar();
             }
         }
-        entryQueue.addCar(new Car(status -> {
+
+        entryQueue.add(new Car(status -> {
             if (status == Car.Status.PARK && (Main.random.nextInt(32) < 4)) return Car.Status.EXIT_WAIT;
             else return status;
-        },
-        new Ticket(TicketType.REGULAR)));
+        }, new Ticket(TicketType.REGULAR)));
+
         for (int i = 0; i < entryPerTick; i++) {
             if (garage.totalSpaces() > garage.getUsedSpaces()) {
-                Car car = entryQueue.removeCar();
+                Car car = entryQueue.peekFirst();
                 if (car != null) {
                     boolean isValid = true;
                     Ticket[] tickets = car.getTickets();
                     for(Ticket ticket : tickets) {
-
-                        ParkingSlot spot = garage.getFirstEmptyLocation();
+                        ParkingSlot spot = garage.getRandomEmptyLocation();
                         switch(ticket.getType()) {
                             case REGULAR:
                                 if (spot != null) {
                                     ticket.setStart(new Date());
-                                    garage.addCar(car, spot);
+                                    spot.setCar(car);
                                     ticketSold++;
                                 } else {
                                     isValid = false;
                                 }
                             break;
                             case RESERVATION:
-                                if (spot == null) {
-                                    throw new ParkingException("Reserved spot not available!");
-                                }
-                                if (ticket.isValid(now)) {
-                                    garage.addCar(car, spot);
-                                } else {
-                                    isValid = false;
-                                }
-                                break;
                             case SUBSCRIPTION:
                                 if (spot != null) {
                                     if (ticket.isValid(now)) {
-                                        garage.addCar(car, spot);
+                                        spot.setCar(car);
                                     } else {
                                         isValid = false;
                                     }
-                                    garage.addCar(car, spot);
                                 } else {
                                     isValid = false;
                                 }
@@ -88,18 +82,22 @@ public class Simulator {
                                 break;
                         }
                     }
-                    if (!isValid) {
-                        car.setStatus(Car.Status.EXIT_QUEUE);
-                        exitQueue.addCar(car);
+                    if (isValid) {
+                        entryQueue.removeFirst();
+                    } else {
+                        entryQueue.addFirst(car);
                     }
                 }
             }
         }
-        garage.forEach(car -> {
-            car.tick();
-            if (car.getStatus() == Car.Status.EXIT_WAIT) {
-                car.setStatus(Car.Status.EXIT_QUEUE);
-                exitQueue.addCar(car);
+
+        garage.forEach(parkingSlot -> {
+            if (!parkingSlot.isEmpty()) {
+                parkingSlot.getCar().tick();
+                if (parkingSlot.getCar().getStatus() == Car.Status.EXIT_WAIT) {
+                    parkingSlot.getCar().setStatus(Car.Status.EXIT_QUEUE);
+                    exitQueue.add(parkingSlot);
+                }
             }
         });
     }
@@ -112,10 +110,6 @@ public class Simulator {
 
     public Garage getGarage() {
         return garage;
-    }
-
-    public void queueCar(Car car) {
-        entryQueue.addCar(car);
     }
 
     //return the size of the queue

@@ -1,8 +1,6 @@
 package yellowsparkle.parking.model;
 
 public class Car {
-
-    private ParkingSlot parkingSlot;
     private Ticket[] tickets;
     private Status status;
     private CarDecision decision;
@@ -15,16 +13,8 @@ public class Car {
         this.decision = decision;
         this.tickets = tickets;
         this.lifespan = 0;
+        this.status = Status.ENTER;
     }
-
-    public ParkingSlot getParkingSlot() {
-        return parkingSlot;
-    }
-
-    public void setParkingSlot(ParkingSlot parkingSlot) {
-        this.parkingSlot = parkingSlot;
-    }
-
     public void tick() {
         lifespan++;
         status = decision.decide(status);
