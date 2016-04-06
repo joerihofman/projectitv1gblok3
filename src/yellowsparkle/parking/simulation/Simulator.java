@@ -43,7 +43,7 @@ public class Simulator {
             if (status == Car.Status.PARK && (Main.random.nextInt(32) < 4)) return Car.Status.EXIT_WAIT;
             else return status;
         },
-        new Ticket(TicketType.REGULAR)));
+        new Ticket(TicketType.getRandomTicket())));
         for (int i = 0; i < entryPerTick; i++) {
             if (garage.totalSpaces() > garage.getUsedSpaces()) {
                 Car car = entryQueue.removeCar();
@@ -63,16 +63,19 @@ public class Simulator {
                                     isValid = false;
                                 }
                             break;
-                            case RESERVATION:
-                                if (spot == null) {
-                                    throw new ParkingException("Reserved spot not available!");
-                                }
-                                if (ticket.isValid(now)) {
-                                    garage.addCar(car, spot);
-                                } else {
-                                    isValid = false;
-                                }
-                                break;
+                            /**
+                             * Commented out caused an error (null pointer exeption)
+                             */
+                            //case RESERVATION:
+                            //    if (spot == null) {
+                            //        throw new ParkingException("Reserved spot not available!");
+                            //    }
+                            //    if (ticket.isValid(now)) {
+                            //        garage.addCar(car, spot);
+                            //    } else {
+                            //        isValid = false;
+                            //    }
+                            //    break;
                             case SUBSCRIPTION:
                                 if (spot != null) {
                                     if (ticket.isValid(now)) {
@@ -85,8 +88,9 @@ public class Simulator {
                                     isValid = false;
                                 }
                                 break;
-                            case CORPORATE_PARKING:
-                                break;
+                            //case CORPORATE_PARKING:
+                              //  System.out.println("Main loop tick!");
+                               // break;
                         }
                     }
                     if (!isValid) {
