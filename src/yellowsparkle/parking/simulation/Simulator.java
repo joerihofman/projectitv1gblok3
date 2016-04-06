@@ -80,10 +80,12 @@ public class Simulator {
                                 if (spot != null) {
                                     if (ticket.isValid(now)) {
                                         garage.addCar(car, spot);
+
                                     } else {
                                         isValid = false;
                                     }
                                     garage.addCar(car, spot);
+
                                 } else {
                                     isValid = false;
                                 }
