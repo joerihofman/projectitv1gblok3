@@ -43,6 +43,7 @@ public class Ticket {
      * @param date Date of the subscription / ticket
      * @return the isValid of the ticket
      */
+
     public boolean isValid(Date date) {
         return start.before(date) && exit.after(date);
     }

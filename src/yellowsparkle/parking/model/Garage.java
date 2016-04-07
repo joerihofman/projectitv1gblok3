@@ -8,17 +8,21 @@ public abstract class Garage {
 
     public abstract void forEach(Consumer<ParkingSlot> slotConsumer);
 
-    /*
+    /**
     * A car needs a empty parking spot
     * To make it more realistic we give each car a random location
     */
     public abstract ParkingSlot getRandomEmptyLocation();
 
-    /*
+    /**
     * Gives back a list with empty parking slots in the garage
     */
     public abstract List<ParkingSlot> getEmptyLocations();
 
+    /**
+     *
+     * @return parkingSlots.values();
+     */
     public abstract Collection<ParkingSlot> getTotalSpaces();
 
     public abstract List<ParkingSlot> getUsedSpaces();

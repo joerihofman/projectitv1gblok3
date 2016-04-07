@@ -3,8 +3,11 @@ package yellowsparkle.parking.simulation;
 import yellowsparkle.parking.model.Garage;
 
 public abstract class Simulator {
-    // dummy comment
+    /**
+     * @throws ParkingException When the car has NULL input.
+     */
     public abstract void tick() throws ParkingException;
+
 
     public abstract void tick(int ticks) throws ParkingException;
 
