@@ -9,7 +9,7 @@ import yellowsparkle.parking.simulation.SimulatorImpl;
 import java.util.Random;
 
 
-/**
+/** 
  * Generic init starting class
  */
 public class Main {
@@ -39,7 +39,7 @@ public class Main {
             }
             endTime = System.nanoTime();
             System.out.println("Main loop tick: " + ((endTime - startTime)/1000) + " ms");
-            Thread.sleep(250);
+           Thread.sleep(250);
         }
         System.exit(0);
     }
