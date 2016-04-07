@@ -1,12 +1,11 @@
 package yellowsparkle;
 
 import yellowsparkle.parking.SlotGenerator;
-import yellowsparkle.parking.model.Garage;
-import yellowsparkle.parking.model.ParkingSlot;
+import yellowsparkle.parking.model.GarageImpl;
 import yellowsparkle.parking.simulation.Simulator;
 import yellowsparkle.parking.simulation.ParkingException;
+import yellowsparkle.parking.simulation.SimulatorImpl;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -25,7 +24,7 @@ public class Main {
      */
     public static void main(String[] args) throws InterruptedException, ParkingException {
             //fill in the total floors, rows and places
-        simulator = new Simulator(new Garage(SlotGenerator.genericRectangular("Test", 6, 5)));
+        simulator = new SimulatorImpl(new GarageImpl(SlotGenerator.genericRectangular("Test", 6, 5)));
         GUI gui = GUI.init();
 
         random = new Random();

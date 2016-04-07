@@ -1,26 +1,29 @@
 package yellowsparkle.Piechart;
 
-/**
- * Created by MSI on 5-4-2016.
- */
-import java.util.*;
+import yellowsparkle.Main;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Model implements Runnable {
-    private int aantal;
+    private int num;
     private List<View> views;
     private boolean run;
 
     public Model() {
-        views=new ArrayList<View>();
+        views= new ArrayList<>();
+        views.forEach(View::updateView);
+        new Thread(this).start();
     }
 
-    public int getAantal() {
-        return aantal;
+    public int getNum() {
+        //return num;
+        return Main.simulator.getGarage().getUsedSpaces();
     }
 
-    public void setAantal(int aantal) {
-        if (aantal>=0 && aantal <=360) {
-            this.aantal=aantal;
+    public void setNum(int num) {
+        if (num>=0 && num <=360) {
+            this.num =num;
             notifyViews();
         }
     }
@@ -38,14 +41,14 @@ public class Model implements Runnable {
     }
 
     private void notifyViews() {
-        for(View v: views) v.updateView();
+        views.forEach(View::updateView);
     }
 
     @Override
     public void run() {
         run=true;
         while(run) {
-            setAantal(getAantal()+1);
+            setNum(getNum()+1);
             try {
                 Thread.sleep(100);
             } catch (Exception e) {}

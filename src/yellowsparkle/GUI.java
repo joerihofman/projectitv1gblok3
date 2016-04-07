@@ -1,10 +1,13 @@
 package yellowsparkle;
 
+import yellowsparkle.Piechart.CreatePiechart;
+import yellowsparkle.Piechart.Model;
 import yellowsparkle.gui.ImagePanel;
 import yellowsparkle.parking.simulation.ParkingException;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.awt.Graphics;
 
 public class GUI {
     private JPanel panel1;
@@ -20,6 +23,7 @@ public class GUI {
     private JLabel labelTakenSpaces;
     private JLabel labelFreeSpaces;
     private JLabel labelSoldTickets;
+    private ImagePanel piechartPanel;
 
 
     public GUI() {
@@ -74,10 +78,11 @@ public class GUI {
         //alternative text view
         labelQueue.setText("In the queue there are " + Main.simulator.queueLength() + " cars");
         labelTicks.setText("There have been " + Main.simulator.getTickCount() + " ticks");
-        labelTakenSpaces.setText("There are " + Main.simulator.usedParkingSpaces() + " spaces used");
-        labelFreeSpaces.setText("There are " + Main.simulator.freeParkingSpaces() + " spaces empty");
+        labelTakenSpaces.setText("There are " + Main.simulator.getGarage().getUsedSpaces() + " spaces used");
+        labelFreeSpaces.setText("There are " + Main.simulator.getGarage().getEmptyLocations() + " spaces empty");
         labelSoldTickets.setText("There are " + Main.simulator.getSoldTickets() + " normal tickets sold");
     }
+
 
     //TODO Three new alternative views, piechart or graph etc...;
     // Joeri is busy making an alternative view :( ;
@@ -96,6 +101,7 @@ public class GUI {
         frame.pack();
         frame.setSize(500, 500);
         frame.setVisible(true);
+        new CreatePiechart();
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
