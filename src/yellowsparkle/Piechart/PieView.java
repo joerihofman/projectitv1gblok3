@@ -1,6 +1,6 @@
 package yellowsparkle.Piechart;
 
-import yellowsparkle.Main;
+import yellowsparkle.Globals;
 
 import java.awt.*;
 
@@ -13,7 +13,7 @@ public class PieView extends View {
 
     public void paintComponent(Graphics g) {
         int num =(getModel().getNum()*totalparts);
-        int total = Main.simulator.getGarage().getTotalSpaces();
+        int total = Globals.simulator.getGarage().getTotalSpaces().size();
 
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, 200, 200);

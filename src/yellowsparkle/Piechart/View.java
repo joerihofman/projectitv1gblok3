@@ -1,13 +1,13 @@
 package yellowsparkle.Piechart;
 
-import yellowsparkle.Main;
+import yellowsparkle.Globals;
 
 import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class View extends JPanel {
     private Model model;
-    int totalparts = (360/ Main.simulator.getGarage().getTotalSpaces());
+    int totalparts = (360/ Globals.simulator.getGarage().getTotalSpaces().size());
 
     public View(Model model) {
         this.model=model;

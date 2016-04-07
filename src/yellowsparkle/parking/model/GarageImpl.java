@@ -1,6 +1,6 @@
 package yellowsparkle.parking.model;
 
-import yellowsparkle.Main;
+import yellowsparkle.Globals;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -26,7 +26,7 @@ public class GarageImpl extends Garage {
     public ParkingSlot getRandomEmptyLocation() {
         List<ParkingSlot> emptyLocations = getEmptyLocations();
         if (emptyLocations.size() > 0) {
-            return emptyLocations.get(Main.random.nextInt(emptyLocations.size()));
+            return emptyLocations.get(Globals.random.nextInt(emptyLocations.size()));
         } else {
             return null;
         }
@@ -38,13 +38,13 @@ public class GarageImpl extends Garage {
     }
 
     @Override
-    public int getTotalSpaces() {
-        return parkingSlots.size();
+    public Collection<ParkingSlot> getTotalSpaces() {
+        return parkingSlots.values();
     }
 
     @Override
-    public int getUsedSpaces() {
-        return (int) parkingSlots.values().stream().filter(parkingSlot -> !parkingSlot.isEmpty()).count();
+    public List<ParkingSlot> getUsedSpaces() {
+        return parkingSlots.values().stream().filter(parkingSlot -> !parkingSlot.isEmpty()).collect(Collectors.toList());
     }
 
     @Override
