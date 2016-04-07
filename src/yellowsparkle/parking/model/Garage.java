@@ -5,12 +5,23 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public abstract class Garage {
+
     public abstract void forEach(Consumer<ParkingSlot> slotConsumer);
 
+    /*
+    * A car needs a empty parking spot
+    * To make it more realistic we give each car a random location
+    */
     public abstract ParkingSlot getRandomEmptyLocation();
 
+    /*
+    * Gives back a list with empty parking slots in the garage
+    */
     public abstract List<ParkingSlot> getEmptyLocations();
 
+    /*
+    *
+    */
     public abstract int getTotalSpaces();
 
     public abstract int getUsedSpaces();

@@ -27,10 +27,16 @@ public class Ticket {
         }
     }
 
+    /*
+    * Check if parking ticket is still valid
+    */
     public boolean isValid(Date date) {
         return start.before(date) && exit.after(date);
     }
 
+    /*
+    * @return ticket type
+    */
     public TicketType getType() {
         return type;
     }
@@ -70,7 +76,9 @@ public class Ticket {
          */
         CORPORATE_PARKING;
 
-
+        /*
+        * this makes a random ticket from the TicketType.
+        * */
         public static TicketType getRandomTicket() {
             return values()[(int) (Math.random() * values().length)];
         }
