@@ -18,8 +18,13 @@ public class Ticket {
 
     public Ticket(TicketType type, Date start, Date exit){
         this.type = type;
-        this.start = start;
-        this.exit = exit;
+        if (type != TicketType.REGULAR) {
+            this.start = start;
+            this.exit = exit;
+            if (start == null || exit == null) {
+                throw new IllegalArgumentException("Invalid date");
+            }
+        }
     }
 
     public boolean isValid(Date date) {
@@ -63,7 +68,7 @@ public class Ticket {
         /**
          * Corporate parking parking ticket; payment by corporation, block of spaces rented out to a corporation.
          */
-         CORPORATE_PARKING;
+        CORPORATE_PARKING;
 
 
         public static TicketType getRandomTicket() {
