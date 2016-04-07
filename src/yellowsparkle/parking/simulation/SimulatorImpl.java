@@ -46,7 +46,7 @@ public class SimulatorImpl extends Simulator {
         entryQueue.add(new Car(status -> {
             if (status == Car.Status.PARK && (Main.random.nextInt(32) < 4)) return Car.Status.EXIT_WAIT;
             else return status;
-        }, new Ticket(TicketType.REGULAR)));                    //For now all cars have a REGULAR ticket.
+        }, new Ticket(TicketType.REGULAR)));          //For now all cars have a REGULAR ticket||||| cuz getRandomTicket breaks cuz of -Reservation-Subscription and coperate parking...
 
         /*
         * We use boolean isValid to make sure the parking ticket/subscription is still valid.
@@ -76,8 +76,8 @@ public class SimulatorImpl extends Simulator {
                                     isValid = false;
                                 }
                             break;
-                            case RESERVATION:
-                            case SUBSCRIPTION:
+                            case RESERVATION:  //Currently breaks it with random ticket type
+                            case SUBSCRIPTION: //Currently breaks it with random ticket type
                                 if (spot != null) {
                                     if (ticket.isValid(now)) {
                                         spot.setCar(car);
@@ -88,7 +88,7 @@ public class SimulatorImpl extends Simulator {
                                     isValid = false;
                                 }
                                 break;
-                            case CORPORATE_PARKING:
+                            case CORPORATE_PARKING: //Currently breaks it with random ticket type
                                 break;
                         }
                     }
