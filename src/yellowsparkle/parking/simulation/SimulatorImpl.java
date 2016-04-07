@@ -20,7 +20,7 @@ public class SimulatorImpl extends Simulator {
     private int entryPerTick = 1;
     private int exitPerTick = 3;
     int ticketSold = 0;
-    private int soldTickets;
+
 
     public SimulatorImpl(Garage garage) {
         this.garage = garage;
@@ -147,6 +147,6 @@ public class SimulatorImpl extends Simulator {
 
     @Override
     public int getSoldTickets() {
-        return soldTickets;
+        return ticketSold;
     }
 }
