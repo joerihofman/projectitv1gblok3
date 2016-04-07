@@ -9,7 +9,7 @@ import yellowsparkle.parking.simulation.SimulatorImpl;
 import java.util.Random;
 
 
-/**
+/** 
  * Generic init starting class
  */
 public class Main {
