@@ -11,9 +11,9 @@ public abstract class Garage {
 
     public abstract List<ParkingSlot> getEmptyLocations();
 
-    public abstract int getTotalSpaces();
+    public abstract Collection<ParkingSlot> getTotalSpaces();
 
-    public abstract int getUsedSpaces();
+    public abstract List<ParkingSlot> getUsedSpaces();
 
     public abstract Car addCar(Car car, Position position);
 

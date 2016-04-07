@@ -1,5 +1,6 @@
-package yellowsparkle;
+package yellowsparkle.gui;
 
+import yellowsparkle.Globals;
 import yellowsparkle.Piechart.CreatePiechart;
 import yellowsparkle.Piechart.Model;
 import yellowsparkle.gui.ImagePanel;
@@ -31,11 +32,11 @@ public class GUI {
     public GUI() {
         //Pause button
         buttonPause.addActionListener(e -> {
-            if (Constants.PAUSE) {
+            if (Globals.pause) {
                 buttonPause.setText("Pause");
-                Constants.PAUSE = false;
+                Globals.pause = false;
             } else {
-                Constants.PAUSE = true;
+                Globals.pause = true;
                 buttonPause.setText("Resume");
             }
 
@@ -45,7 +46,7 @@ public class GUI {
         buttonReset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main.simulator.reset();
+                Globals.simulator.reset();
             }
         });
 
@@ -54,7 +55,7 @@ public class GUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Main.simulator.tick();
+                    Globals.simulator.tick();
                 } catch (ParkingException e1) {
                     e1.printStackTrace();
                 }
@@ -66,7 +67,7 @@ public class GUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Main.simulator.tick(100);
+                    Globals.simulator.tick(100);
                 } catch (ParkingException e1) {
                     e1.printStackTrace();
                 }
@@ -76,13 +77,13 @@ public class GUI {
 
     public void tick() {
         //count the queue
-        imagePanel1.update(Main.simulator.getGarage().getParkingSlots(), Main.simulator.getGarage().getCars());
+        imagePanel1.update(Globals.simulator.getGarage().getParkingSlots(), Globals.simulator.getGarage().getCars());
         //alternative text view
-        labelQueue.setText("In the queue there are " + Main.simulator.queueLength() + " cars");
-        labelTicks.setText("There have been " + Main.simulator.getTickCount() + " ticks");
-        labelTakenSpaces.setText("There are " + Main.simulator.getGarage().getUsedSpaces() + " spaces used");
-        labelFreeSpaces.setText("There are " + Main.simulator.getGarage().getEmptyLocations().size() + " spaces empty");
-        labelSoldTickets.setText("There are " + Main.simulator.getSoldTickets() + " normal tickets sold");
+        labelQueue.setText("In the queue there are " + Globals.simulator.queueLength() + " cars");
+        labelTicks.setText("There have been " + Globals.simulator.getTickCount() + " ticks");
+        labelTakenSpaces.setText("There are " + Globals.simulator.getGarage().getUsedSpaces().size() + " spaces used");
+        labelFreeSpaces.setText("There are " + Globals.simulator.getGarage().getEmptyLocations().size() + " spaces empty");
+        labelSoldTickets.setText("There are " + Globals.simulator.getSoldTickets() + " normal tickets sold");
     }
 
 
@@ -103,11 +104,11 @@ public class GUI {
         frame.pack();
         frame.setSize(500, 500);
         frame.setVisible(true);
-        new CreatePiechart();
+        //new CreatePiechart();
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                Constants.EXIT = true;
+                Globals.exit = true;
             }
         });
         return gui;
@@ -116,6 +117,5 @@ public class GUI {
     private void createUIComponents() {
         // TODO: place custom component creation code here
         imagePanel1=new ImagePanel();
-        //piechartPanel=new CreatePiechart();
     }
 }

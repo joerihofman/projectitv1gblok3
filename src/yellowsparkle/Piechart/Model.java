@@ -1,6 +1,6 @@
 package yellowsparkle.Piechart;
 
-import yellowsparkle.Main;
+import yellowsparkle.Globals;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ public class Model implements Runnable {
 
     public int getNum() {
         //return num;
-        return Main.simulator.getGarage().getUsedSpaces();
+        return Globals.simulator.getGarage().getUsedSpaces().size();
     }
 
     public void setNum(int num) {
