@@ -1,72 +1,31 @@
 package yellowsparkle.parking.model;
 
-import yellowsparkle.Main;
-
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
-public class Garage {
-    private HashMap<Position, ParkingSlot> parkingSlots;
+public abstract class Garage {
+    public abstract void forEach(Consumer<ParkingSlot> slotConsumer);
 
+    public abstract ParkingSlot getRandomEmptyLocation();
 
-    public Garage(List<ParkingSlot> slots) {
-        this.parkingSlots = new HashMap<>();
-        slots.forEach(parkingSlot -> parkingSlots.put(parkingSlot.getPosition(), parkingSlot));
-    }
+    public abstract List<ParkingSlot> getEmptyLocations();
 
-    public void forEach(Consumer<ParkingSlot> slotConsumer) {
-        parkingSlots.values().forEach(slotConsumer);
-    }
+    public abstract int getTotalSpaces();
 
-    public ParkingSlot getRandomEmptyLocation() {
-        List<ParkingSlot> emptyLocations = getEmptyLocations();
-        if (emptyLocations.size() > 0) {
-            return emptyLocations.get(Main.random.nextInt(emptyLocations.size()));
-        } else {
-            return null;
-        }
-    }
+    public abstract int getUsedSpaces();
 
-    public List<ParkingSlot> getEmptyLocations() {
-        return parkingSlots.values().stream().filter(ParkingSlot::isEmpty).collect(Collectors.toList());
-    }
+    public abstract Car addCar(Car car, Position position);
 
-    public int getTotalSpaces() {
-        return parkingSlots.size();
-    }
+    public abstract Car removeCar(Position position);
 
-    public int getUsedSpaces() {
-        return (int) parkingSlots.values().stream().filter(parkingSlot -> !parkingSlot.isEmpty()).count();
-    }
+    public abstract void removeCar(Car car);
 
-    public Car addCar(Car car, Position position) {
-        return parkingSlots.get(position).setCar(car);
-    }
+    public abstract boolean hasPosition(Position position);
 
-    public Car removeCar(Position position) {
-        return parkingSlots.get(position).removeCar();
-    }
+    public abstract List<Car> getCars();
 
-    public void removeCar(Car car) {
-        parkingSlots.values().stream().filter(parkingSlot -> parkingSlot.getCar() == car).forEach(ParkingSlot::removeCar);
-    }
+    public abstract Collection<ParkingSlot> getParkingSlots();
 
-    public boolean hasPosition(Position position) {
-        return parkingSlots.containsKey(position);
-    }
-
-    public List<Car> getCars() {
-        return parkingSlots.values().stream().map(ParkingSlot::getCar).collect(Collectors.toList());
-    }
-
-    public Collection<ParkingSlot> getParkingSlots() {
-        return parkingSlots.values();
-    }
-
-    public List<Car> removeCars() {
-        return parkingSlots.values().stream().map(ParkingSlot::removeCar).collect(Collectors.toList());
-    }
+    public abstract List<Car> removeCars();
 }
