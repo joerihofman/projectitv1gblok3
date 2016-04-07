@@ -24,7 +24,7 @@ public class SimulatorImpl extends Simulator {
 
     public SimulatorImpl(Garage garage) {
         this.garage = garage;
-        entryQueue = new ArrayDeque<>();
+        entryQueue = new ArrayDeque<>();                        //Deque is for the queues to add/remove one from both sides
         exitQueue = new ArrayDeque<>();
         tickCount = 0;
 
@@ -32,8 +32,8 @@ public class SimulatorImpl extends Simulator {
 
     @Override
     public void tick() throws ParkingException {
-        Date now = new Date();
-        System.out.println("TICK: " + tickCount);
+        Date now = new Date();                                  //gives a date with each that arrives
+        System.out.println("TICK: " + tickCount);               //This is for in the command line to see at which tick we are.
         tickCount++;
 
         if (canExit) {
@@ -46,22 +46,32 @@ public class SimulatorImpl extends Simulator {
         entryQueue.add(new Car(status -> {
             if (status == Car.Status.PARK && (Main.random.nextInt(32) < 4)) return Car.Status.EXIT_WAIT;
             else return status;
-        }, new Ticket(TicketType.REGULAR)));
+        }, new Ticket(TicketType.REGULAR)));                    //For now all cars have a REGULAR ticket.
 
+        /*
+        * We use boolean isValid to make sure the parking ticket/subscription is still valid.
+        * For now we don't use it but we will get there
+        * */
         for (int i = 0; i < entryPerTick; i++) {
             if (garage.getTotalSpaces() > garage.getUsedSpaces()) {
-                Car car = entryQueue.peekFirst();
+                Car car = entryQueue.peekFirst();               //peekFirst retrieves the first car in the dequeue.
                 if (car != null) {
                     boolean isValid = true;
-                    Ticket[] tickets = car.getTickets();
-                    for(Ticket ticket : tickets) {
+                    Ticket[] tickets = car.getTickets();        //getTickets retrieves all the information about the ticket
+
+                    /*
+                   * We used a enum for the parking ticket
+                   * Here it checks what kind of parking ticket the car has.
+                   * 7-4-16 11.40 - All the cars has a "REGULAR" ticket for now. This will change.
+                   * */
+                    for(Ticket ticket : tickets) {               //Here it searches randomly for the first empty location in the parking garage
                         ParkingSlot spot = garage.getRandomEmptyLocation();
-                        switch(ticket.getType()) {
+                        switch(ticket.getType()) {               //asks the type of ticket
                             case REGULAR:
                                 if (spot != null) {
-                                    ticket.setStart(new Date());
+                                    ticket.setStart(new Date()); //When the car is parked this gives it a date to track how long it's parked
                                     spot.setCar(car);
-                                    ticketSold++;
+                                    ticketSold++;                //Here it counts the "REGULAR" tickets sold. This is used in the GUI
                                 } else {
                                     isValid = false;
                                 }
@@ -94,9 +104,9 @@ public class SimulatorImpl extends Simulator {
         garage.forEach(parkingSlot -> {
             if (!parkingSlot.isEmpty()) {
                 parkingSlot.getCar().tick();
-                if (parkingSlot.getCar().getStatus() == Car.Status.EXIT_WAIT) {
+                if (parkingSlot.getCar().getStatus() == Car.Status.EXIT_WAIT) {     //When a car leaves the garages the status is changed to EXIT_WAIT. This is checked here and when it has this status the car will be put in the exit queue.
                     parkingSlot.getCar().setStatus(Car.Status.EXIT_QUEUE);
-                    exitQueue.add(parkingSlot);
+                    exitQueue.add(parkingSlot);                                     //The car will leave the garage and adds it in the exit queue
                 }
             }
         });
