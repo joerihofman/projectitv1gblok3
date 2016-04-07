@@ -42,11 +42,11 @@ public class Controller extends JPanel implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==mineen) {
-            model.setAantal(model.getAantal()-1);
+            model.setNum(model.getNum()-1);
         }
 
         if (e.getSource()==pluseen) {
-            model.setAantal(model.getAantal()+1);
+            model.setNum(model.getNum()+1);
         }
 
         if (e.getSource()==start) {

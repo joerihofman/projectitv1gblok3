@@ -10,7 +10,6 @@ import yellowsparkle.parking.model.Ticket.TicketType;
 import java.util.ArrayDeque;
 import java.util.Date;
 import java.util.Deque;
-import java.util.Queue;
 
 public class Simulator {
     private Garage garage;
@@ -49,7 +48,7 @@ public class Simulator {
         }, new Ticket(TicketType.REGULAR)));
 
         for (int i = 0; i < entryPerTick; i++) {
-            if (garage.totalSpaces() > garage.getUsedSpaces()) {
+            if (garage.getTotalSpaces() > garage.getUsedSpaces()) {
                 Car car = entryQueue.peekFirst();
                 if (car != null) {
                     boolean isValid = true;
@@ -122,16 +121,6 @@ public class Simulator {
         garage.removeCars();
         tickCount = 0;
         ticketSold = 0;
-    }
-
-    //Used parking spaces for the GUI
-    public int usedParkingSpaces() {
-        return garage.getUsedSpaces();
-    }
-
-    //Empty parking spaces for the GUI
-    public int freeParkingSpaces() {
-        return (garage.totalSpaces() - garage.getUsedSpaces());
     }
 
     public boolean canExit() {

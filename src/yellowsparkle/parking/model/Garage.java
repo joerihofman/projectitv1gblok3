@@ -34,7 +34,7 @@ public class Garage {
         return parkingSlots.values().stream().filter(ParkingSlot::isEmpty).collect(Collectors.toList());
     }
 
-    public int totalSpaces() {
+    public int getTotalSpaces() {
         return parkingSlots.size();
     }
 

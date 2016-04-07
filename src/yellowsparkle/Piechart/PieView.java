@@ -1,8 +1,5 @@
 package yellowsparkle.Piechart;
 
-/**
- * Created by MSI on 5-4-2016.
- */
 import yellowsparkle.Main;
 
 import java.awt.*;
@@ -15,13 +12,13 @@ public class PieView extends View {
     }
 
     public void paintComponent(Graphics g) {
-        int aantal=(getModel().getAantal()*totalparts);
-        int totaal= Main.simulator.totalParkingSpaces();
+        int num =(getModel().getNum()*totalparts);
+        int total = Main.simulator.getGarage().getTotalSpaces();
 
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, 200, 200);
         g.setColor(Color.BLUE);
 
-        g.fillArc(10, 10, 180, 180, 0, aantal);
+        g.fillArc(10, 10, 180, 180, 0, num);
     }
 }

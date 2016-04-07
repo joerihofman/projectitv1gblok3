@@ -78,8 +78,8 @@ public class GUI {
         //alternative text view
         labelQueue.setText("In the queue there are " + Main.simulator.queueLength() + " cars");
         labelTicks.setText("There have been " + Main.simulator.getTickCount() + " ticks");
-        labelTakenSpaces.setText("There are " + Main.simulator.usedParkingSpaces() + " spaces used");
-        labelFreeSpaces.setText("There are " + Main.simulator.freeParkingSpaces() + " spaces empty");
+        labelTakenSpaces.setText("There are " + Main.simulator.getGarage().getUsedSpaces() + " spaces used");
+        labelFreeSpaces.setText("There are " + Main.simulator.getGarage().getEmptyLocations() + " spaces empty");
         labelSoldTickets.setText("There are " + Main.simulator.getSoldTickets() + " normal tickets sold");
     }
 

@@ -13,7 +13,7 @@ public class CountView extends View {
     }
 
     public void paintComponent(Graphics g) {
-        int aantal=getModel().getAantal();
+        int aantal=getModel().getNum();
         boolean ready=false;
         int counter=1;
 

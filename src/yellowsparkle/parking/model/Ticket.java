@@ -55,15 +55,15 @@ public class Ticket {
         /**
          * Reserved parking spot; Paid in advance, one guaranteed spot of unspecified location.
          */
-        //RESERVATION,
+        RESERVATION,
         /**
          * Subscription parking ticket; Paid in advance, no guaranteed spot.
          */
-        SUBSCRIPTION;
+        SUBSCRIPTION,
         /**
          * Corporate parking parking ticket; payment by corporation, block of spaces rented out to a corporation.
          */
-         //CORPORATE_PARKING;
+         CORPORATE_PARKING;
 
 
         public static TicketType getRandomTicket() {
