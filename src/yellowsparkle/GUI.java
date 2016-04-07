@@ -6,6 +6,7 @@ import yellowsparkle.gui.ImagePanel;
 import yellowsparkle.parking.simulation.ParkingException;
 
 import javax.swing.*;
+import javax.swing.JPanel;
 import java.awt.event.*;
 import java.awt.Graphics;
 
@@ -24,6 +25,7 @@ public class GUI {
     private JLabel labelFreeSpaces;
     private JLabel labelSoldTickets;
     private ImagePanel piechartPanel;
+    private JPanel pieChart;
 
 
     public GUI() {
@@ -79,7 +81,7 @@ public class GUI {
         labelQueue.setText("In the queue there are " + Main.simulator.queueLength() + " cars");
         labelTicks.setText("There have been " + Main.simulator.getTickCount() + " ticks");
         labelTakenSpaces.setText("There are " + Main.simulator.getGarage().getUsedSpaces() + " spaces used");
-        labelFreeSpaces.setText("There are " + Main.simulator.getGarage().getEmptyLocations() + " spaces empty");
+        labelFreeSpaces.setText("There are " + Main.simulator.getGarage().getEmptyLocations().size() + " spaces empty");
         labelSoldTickets.setText("There are " + Main.simulator.getSoldTickets() + " normal tickets sold");
     }
 
@@ -114,5 +116,6 @@ public class GUI {
     private void createUIComponents() {
         // TODO: place custom component creation code here
         imagePanel1=new ImagePanel();
+        //piechartPanel=new CreatePiechart();
     }
 }
