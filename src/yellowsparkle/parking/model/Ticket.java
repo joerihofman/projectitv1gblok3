@@ -12,10 +12,21 @@ public class Ticket {
         this(type, new Date(0));
     }
 
+    /**
+     * Creates a ticket with the type and a start date
+     * @param type  type of the ticket
+     * @param start StartDate of the ticket
+     */
     public Ticket(TicketType type, Date start) {
         this(type, start, new Date(0));
     }
 
+    /**
+     * A check if the ticket is valid
+     * @param type Ticket type
+     * @param start Start date of the ticket
+     * @param exit Exit date of the ticket
+     */
     public Ticket(TicketType type, Date start, Date exit){
         this.type = type;
         if (type != TicketType.REGULAR) {
@@ -27,14 +38,18 @@ public class Ticket {
         }
     }
 
-    /*
-    * Check if parking ticket is still valid
-    */
+    /**
+     * This calculates if the date on the ticket is still valid
+     * @param date Date of the subscription / ticket
+     * @return the isValid of the ticket
+     */
     public boolean isValid(Date date) {
         return start.before(date) && exit.after(date);
     }
 
-    /*
+
+    /**
+    * Gets the ticket type
     * @return ticket type
     */
     public TicketType getType() {
@@ -45,6 +60,10 @@ public class Ticket {
         return start;
     }
 
+    /**
+     * Sets the start date of the ticket
+     * @param start Start date of the ticket
+     */
     public void setStart(Date start) {
         this.start = start;
     }
@@ -76,9 +95,9 @@ public class Ticket {
          */
         CORPORATE_PARKING;
 
-        /*
+        /**
         * this makes a random ticket from the TicketType.
-        * */
+        */
         public static TicketType getRandomTicket() {
             return values()[(int) (Math.random() * values().length)];
         }
