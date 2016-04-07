@@ -94,7 +94,7 @@ public class SimulatorImpl extends Simulator {
                         }
                     }
                     if (isValid) {
-                        entryQueue.removeFirst();
+                        entryQueue.removeFirst(); //removes car from queueu
                     } else {
                         entryQueue.addFirst(car);
                     }
@@ -134,8 +134,8 @@ public class SimulatorImpl extends Simulator {
     //this will remove all the cars from array and reset the tickcount to zero
     @Override
     public void reset() {
-        garage.removeCars();
-        tickCount = 0;
+        garage.removeCars(); // removes all cars
+        tickCount = 0;       // Resets ticks and sold tickets to 0
         ticketSold = 0;
     }
 
@@ -156,6 +156,7 @@ public class SimulatorImpl extends Simulator {
         return tickCount;
     }
 
+    //returns sold tickets.
     @Override
     public int getSoldTickets() {
         return ticketSold;

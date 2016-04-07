@@ -70,8 +70,9 @@ public class Ticket {
          */
         CORPORATE_PARKING;
 
-
+        //Picks a random ticket type of the enum above.
         public static TicketType getRandomTicket() {
+            //returns this.
             return values()[(int) (Math.random() * values().length)];
         }
 
