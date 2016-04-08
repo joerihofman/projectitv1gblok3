@@ -1,13 +1,12 @@
 package yellowsparkle.parking.simulation;
 
-import yellowsparkle.Globals;
+import yellowsparkle.Main;
 import yellowsparkle.parking.model.ParkingSlot;
 import yellowsparkle.parking.model.Car;
 import yellowsparkle.parking.model.Garage;
 import yellowsparkle.parking.model.Ticket;
 import yellowsparkle.parking.model.Ticket.TicketType;
 
-import java.lang.annotation.Inherited;
 import java.util.ArrayDeque;
 import java.util.Date;
 import java.util.Deque;
@@ -45,7 +44,7 @@ public class SimulatorImpl extends Simulator {
         }
 
         entryQueue.add(new Car(status -> {
-            if (status == Car.Status.PARK && (Globals.random.nextInt(32) < 4)) return Car.Status.EXIT_WAIT;
+            if (status == Car.Status.PARK && (Main.random.nextInt(128) < 4)) return Car.Status.EXIT_WAIT;
             else return status;
         }, new Ticket(TicketType.REGULAR)));                 //For now all cars have a REGULAR ticket||||| cuz getRandomTicket breaks cuz of -Reservation-Subscription and coperate parking...
 

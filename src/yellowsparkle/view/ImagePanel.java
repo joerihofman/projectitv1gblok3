@@ -1,27 +1,22 @@
-package yellowsparkle.gui;
+package yellowsparkle.view;
 
-import yellowsparkle.parking.model.Car;
+import yellowsparkle.ViewPanel;
 import yellowsparkle.parking.model.ParkingSlot;
+import yellowsparkle.view.types.ParkingSlotCollectionAcceptor;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
-public class ImagePanel extends JPanel {
-    private Collection<ParkingSlot> parkingSlotList;
-    private List<Car> carList;
+public class ImagePanel extends ViewPanel implements ParkingSlotCollectionAcceptor {
     private BufferedImage parkImage;
     private BufferedImage carImage;
+    private Collection<ParkingSlot> parkingSlotCollection;
 
     @SuppressWarnings("ConstantConditions")
     public ImagePanel() {
-        parkingSlotList = new ArrayList<>();
-        carList = new ArrayList<>();
         try {
             parkImage = ImageIO.read(this.getClass().getClassLoader().getResource("park.png"));
             carImage = ImageIO.read(this.getClass().getClassLoader().getResource("car.png"));
@@ -31,20 +26,19 @@ public class ImagePanel extends JPanel {
         }
     }
 
-    public void update(Collection<ParkingSlot> parkingSlotList, List<Car> carList) {
-        this.parkingSlotList = parkingSlotList;
-        this.carList = carList;
-        this.repaint();
-    }
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        parkingSlotList.forEach(parkingSlot -> {
+        parkingSlotCollection.forEach(parkingSlot -> {
             g.drawImage(parkImage, parkingSlot.getPosition().getRenderX(), parkingSlot.getPosition().getRenderY(), null);
             if (!parkingSlot.isEmpty()) {
                 g.drawImage(carImage, parkingSlot.getPosition().getRenderX(), parkingSlot.getPosition().getRenderY(), null);
             }
         });
+    }
+
+    @Override
+    public void setParkingSlotCollection(Collection<ParkingSlot> parkingSlotCollection) {
+        this.parkingSlotCollection = parkingSlotCollection;
     }
 }
