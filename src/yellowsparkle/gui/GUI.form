@@ -136,11 +136,13 @@
                     <properties/>
                     <border type="none"/>
                     <children>
-                      <component id="4b0a4" class="yellowsparkle.gui.ImagePanel" binding="piechartPanel">
+                      <component id="4b0a4" class="yellowsparkle.gui.ImagePanel" binding="piechartPanel" custom-create="true">
                         <constraints>
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
-                        <properties/>
+                        <properties>
+                          <enabled value="true"/>
+                        </properties>
                       </component>
                     </children>
                   </grid>

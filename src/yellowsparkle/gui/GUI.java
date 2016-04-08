@@ -3,6 +3,7 @@ package yellowsparkle.gui;
 import yellowsparkle.Globals;
 import yellowsparkle.Piechart.CreatePiechart;
 import yellowsparkle.Piechart.Model;
+import yellowsparkle.Piechart.TestForGUI;
 import yellowsparkle.gui.ImagePanel;
 import yellowsparkle.parking.simulation.ParkingException;
 
@@ -78,6 +79,7 @@ public class GUI {
     public void tick() {
         //count the queue
         imagePanel1.update(Globals.simulator.getGarage().getParkingSlots(), Globals.simulator.getGarage().getCars());
+        //piechartPanel.update(Globals.simulator.getGarage().getUsedSpaces().size());
         //alternative text view
         labelQueue.setText("In the queue there are " + Globals.simulator.queueLength() + " cars");
         labelTicks.setText("There have been " + Globals.simulator.getTickCount() + " ticks");
@@ -117,5 +119,6 @@ public class GUI {
     private void createUIComponents() {
         // TODO: place custom component creation code here
         imagePanel1=new ImagePanel();
+        //piechartPanel= new TestForGUI();
     }
 }

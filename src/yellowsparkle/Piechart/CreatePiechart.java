@@ -4,6 +4,7 @@ package yellowsparkle.Piechart;
  * Created by MSI on 5-4-2016.
  */
 import javax.swing.*;
+import javax.swing.JPanel;
 
 
 public class CreatePiechart extends JComponent {
