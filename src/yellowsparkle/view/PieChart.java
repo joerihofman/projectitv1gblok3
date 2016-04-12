@@ -23,10 +23,11 @@ public class PieChart extends ViewPanel implements ParkingSlotCollectionAcceptor
         if (parkingSlotCollection != null) {
             int num = (int) (((double) usedSpaces.size() / (double) parkingSlotCollection.size()) * 360);
             super.paintComponent(g);
-            g.setColor(Color.YELLOW);
-            g.fillRect(0, 0, 200, 200);
+            g.setColor(Color.WHITE);
+            g.fillRect(0, 0, 154, 154);
             g.setColor(Color.BLUE);
-            g.fillArc(10, 10, 180, 180, 0, num);
+
+            g.fillArc(2, 2, 150, 150, 0, num);
         }
     }
 
