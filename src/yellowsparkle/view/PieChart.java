@@ -9,13 +9,16 @@ import java.util.Collection;
 import java.util.List;
 
 
+/**
+ * This class
+ */
 public class PieChart extends ViewPanel implements ParkingSlotCollectionAcceptor, UsedSlotListAcceptor {
     private Collection<ParkingSlot> parkingSlotCollection;
     private List<ParkingSlot> usedSpaces;
 
 
     /**
-     *
+     * This method creates the piechart for the GUI.
      * @param g is used to set the color of the pie chart
      */
     @Override
@@ -32,6 +35,7 @@ public class PieChart extends ViewPanel implements ParkingSlotCollectionAcceptor
     }
 
     /**
+     * This method
      * @param usedSlotList this gives a list with all the used parking spots
      */
     @Override
