@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * This class is for the pie chart in the gui. So you can see in a pie chart the amount of places occupied
-r */
+ */
 public class PieChart extends ViewPanel implements ParkingSlotCollectionAcceptor, UsedSlotListAcceptor {
     private Collection<ParkingSlot> parkingSlotCollection;
     private List<ParkingSlot> usedSpaces;
