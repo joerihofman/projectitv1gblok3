@@ -14,7 +14,9 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public abstract class Garage {
-
+    /**
+     *
+     */
     protected List<Garage> subGarages;
 
     /**
@@ -29,15 +31,32 @@ public abstract class Garage {
         }
     }
 
+    /**
+     *
+     * @param slotConsumer
+     */
     public abstract void forEach(Consumer<ParkingSlot> slotConsumer);
 
+    /**
+     *
+     * @param slotConsumer
+     */
     // Recursive foreach on subgarages
     public abstract void forAll(Consumer<ParkingSlot> slotConsumer);
 
+    /**
+     *
+     * @param garageConsumer
+     */
     public void forEachGarage(Consumer<Garage> garageConsumer) {
         subGarages.forEach(garageConsumer);
     }
 
+    /**
+     *
+     * @param garage
+     * @return
+     */
     public boolean containsGarage(Garage garage) {
         if (subGarages.contains(garage)) {
             return true;
@@ -65,29 +84,79 @@ public abstract class Garage {
      */
     public abstract Collection<ParkingSlot> getTotalSpaces();
 
+    /**
+     *
+     * @return
+     */
     public abstract List<ParkingSlot> getUsedSpaces();
 
+    /**
+     *
+     * @param garage
+     */
     public void addGarage(Garage garage) {
         subGarages.add(garage);
     }
 
+    /**
+     *
+     * @param garage
+     */
     public void removeGarage(Garage garage) {
         subGarages.remove(garage);
     }
 
+    /**
+     *
+     * @param car
+     * @return
+     */
     public abstract boolean acceptsCar(Car car);
 
+    /**
+     *
+     * @param car
+     * @param position
+     * @return
+     * @throws ParkingException
+     */
     public abstract Car addCar(Car car, Position position) throws ParkingException;
 
+    /**
+     *
+     * @param position
+     * @return
+     */
     public abstract Car removeCar(Position position);
 
+    /**
+     *
+     * @param car
+     */
     public abstract void removeCar(Car car);
 
+    /**
+     *
+     * @param position
+     * @return
+     */
     public abstract boolean hasPosition(Position position);
 
+    /**
+     *
+     * @return
+     */
     public abstract List<Car> getCars();
 
+    /**
+     *
+     * @return
+     */
     public abstract Collection<ParkingSlot> getParkingSlots();
 
+    /**
+     *
+     * @return
+     */
     public abstract List<Car> removeCars();
 }
