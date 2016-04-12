@@ -1,4 +1,5 @@
 /**
+ * This class is used for the garages
  * @author ITV1G Group 1
  * @version 1.0
  * @since 31/3/16
@@ -17,9 +18,9 @@ public abstract class Garage {
 
     protected List<Garage> subGarages;
 
-    /**.
-     * create a list for a seperate parking garage(cooperate parking)
-     * @param subGarages new list
+    /**
+     * This method creates the garage list
+     * @param subGarages The subgarages
      */
     public Garage(List<Garage> subGarages) {
         if (subGarages == null) {
@@ -55,23 +56,23 @@ public abstract class Garage {
     public abstract void forEach(Consumer<ParkingSlot> slotConsumer);
 
     /**
-     *
-     * @param slotConsumer
+     * Iterates over all slots in this garage
+     * @param slotConsumer Consumer for slots
      */
     public abstract void forAll(Consumer<ParkingSlot> slotConsumer);
 
     /**
-     *
-     * @param garageConsumer
+     * Iterates over each garage in the garage
+     * @param garageConsumer Consumer for garage
      */
     public void forEachGarage(Consumer<Garage> garageConsumer) {
         subGarages.forEach(garageConsumer);
     }
 
     /**
-     *
-     * @param garage
-     * @return
+     * This method checks if a garage is used in the garage
+     * @param garage    the garage
+     * @return boolean
      */
     public boolean containsGarage(Garage garage) {
         if (subGarages.contains(garage)) {
@@ -86,6 +87,7 @@ public abstract class Garage {
     /**
     * A car needs a empty parking spot
     * To make it more realistic we give each car a random location
+     * @see GarageImpl
     */
     public abstract ParkingSlot getRandomEmptyLocation();
 
@@ -96,18 +98,19 @@ public abstract class Garage {
 
     /**
      * Returns the current value of parkingSlots
-     * @return parkingSlots.values();
+     * @return parkingSlots.values()
+     * @see GarageImpl
      */
     public abstract Collection<ParkingSlot> getTotalSpaces();
 
     /**
-     *
-     * @return
+     * Activates the getUsedSpaces method
+     * @see GarageImpl
      */
     public abstract List<ParkingSlot> getUsedSpaces();
 
     /**
-     *
+     * This method adds a garage
      * @param garage
      */
     public void addGarage(Garage garage) {
@@ -115,7 +118,7 @@ public abstract class Garage {
     }
 
     /**
-     *
+     * This method removes a garage
      * @param garage
      */
     public void removeGarage(Garage garage) {
@@ -123,56 +126,58 @@ public abstract class Garage {
     }
 
     /**
-     *
-     * @param car
-     * @return
+     * This method accepts a car, if accepted
+     * @param car   the car
+     * @see GarageImpl
      */
     public abstract boolean acceptsCar(Car car);
 
     /**
-     *
-     * @param car
-     * @param position
-     * @return
+     * This method adds a car in a parking spot
+     * @param car       the car
+     * @param position  the position of the car in the garage
      * @throws ParkingException
+     * @see GarageImpl
      */
     public abstract Car addCar(Car car, Position position) throws ParkingException;
 
     /**
-     *
-     * @param position
-     * @return
+     * This method activates the method removeCar with it's position
+     * @param position  the position of the car
+     * @see GarageImpl
      */
     public abstract Car removeCar(Position position);
 
     /**
-     *
-     * @param car
+     * This method activates the method removeCar with it's car value
+     * @param car   the car
+     * @see GarageImpl
      */
     public abstract void removeCar(Car car);
 
     /**
-     *
-     * @param position
-     * @return
+     * This method activates the method hasPosition
+     * @param position  the position
+     * @see GarageImpl
      */
     public abstract boolean hasPosition(Position position);
 
     /**
-     *
+     * This method activates the method getCars
      * @return
+     * @see GarageImpl
      */
     public abstract List<Car> getCars();
 
     /**
-     *
-     * @return
+     * This method activates the method getParkingSlots
+     * @see GarageImpl
      */
     public abstract Collection<ParkingSlot> getParkingSlots();
 
     /**
-     *
-     * @return
+     * This method activates the method removeCars
+     * @see GarageImpl
      */
     public abstract List<Car> removeCars();
 
