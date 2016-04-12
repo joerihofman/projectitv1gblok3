@@ -18,8 +18,8 @@ public abstract class Garage {
     protected List<Garage> subGarages;
 
     /**.
-     *
-     * @param subGarages
+     * create a list for a seperate parking garage(cooperate parking)
+     * @param subGarages new list
      */
     public Garage(List<Garage> subGarages) {
         if (subGarages == null) {

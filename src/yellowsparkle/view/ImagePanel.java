@@ -14,14 +14,17 @@ public class ImagePanel extends ViewPanel implements ParkingSlotCollectionAccept
     private BufferedImage carImage;
     private Collection<ParkingSlot> parkingSlotCollection;
 
+    /**
+     * This ImagePanel takes care of the images of the parking garage simulation.
+     */
     @SuppressWarnings("ConstantConditions")
     public ImagePanel() {
         try {
             parkImage = ImageIO.read(this.getClass().getClassLoader().getResource("park.png"));
             carImage = ImageIO.read(this.getClass().getClassLoader().getResource("car.png"));
         } catch (IOException ex) {
-            ex.printStackTrace();
-            // handle exception...
+            ex.printStackTrace(); /** handle exception... */
+
         }
     }
 

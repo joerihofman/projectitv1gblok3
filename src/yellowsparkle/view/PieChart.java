@@ -1,3 +1,9 @@
+/**
+ * @author ITV1G Group 1
+ * @version 1.0
+ * @since 8/4/16
+ */
+
 package yellowsparkle.view;
 
 import yellowsparkle.parking.model.ParkingSlot;
@@ -8,14 +14,16 @@ import java.awt.*;
 import java.util.Collection;
 import java.util.List;
 
-
+/**
+ * This class is for the pie chart in the gui. So you can see in a pie chart the amount of places occupied
+ */
 public class PieChart extends ViewPanel implements ParkingSlotCollectionAcceptor, UsedSlotListAcceptor {
     private Collection<ParkingSlot> parkingSlotCollection;
     private List<ParkingSlot> usedSpaces;
 
 
     /**
-     *
+     * This method creates the piechart for the GUI.
      * @param g is used to set the color of the pie chart
      */
     @Override
@@ -39,6 +47,11 @@ public class PieChart extends ViewPanel implements ParkingSlotCollectionAcceptor
         this.usedSpaces = usedSlotList;
     }
 
+    /**
+     *
+     * @param parkingSlotCollection is a collection for all the parking slots
+     *
+     */
     @Override
     public void setParkingSlotCollection(Collection<ParkingSlot> parkingSlotCollection) {
         this.parkingSlotCollection = parkingSlotCollection;
