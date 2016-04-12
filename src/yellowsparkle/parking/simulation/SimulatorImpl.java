@@ -48,7 +48,7 @@ public class SimulatorImpl extends Simulator {
             else return status;
         }, new Ticket(TicketType.REGULAR)));                 //For now all cars have a REGULAR ticket||||| cuz getRandomTicket breaks cuz of -Reservation-Subscription and coperate parking...
 
-        /*
+        /**
         * We use boolean isValid to make sure the parking ticket/subscription is still valid.
         * For now we don't use it but we will get there
         * */
@@ -59,7 +59,7 @@ public class SimulatorImpl extends Simulator {
                     boolean isValid = true;
                     Ticket[] tickets = car.getTickets();        //getTickets retrieves all the information about the ticket
 
-                    /*
+                    /**
                    * We used a enum for the parking ticket
                    * Here it checks what kind of parking ticket the car has.
                    * 7-4-16 11.40 - All the cars has a "REGULAR" ticket for now. This will change.

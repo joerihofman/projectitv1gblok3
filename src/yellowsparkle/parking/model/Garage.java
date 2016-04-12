@@ -1,3 +1,9 @@
+/**
+ * @author ITV1G Group 1
+ * @version 1.0
+ * @since 31/3/16
+ */
+
 package yellowsparkle.parking.model;
 
 import yellowsparkle.parking.simulation.ParkingException;
@@ -11,6 +17,10 @@ public abstract class Garage {
 
     protected List<Garage> subGarages;
 
+    /**.
+     *
+     * @param subGarages
+     */
     public Garage(List<Garage> subGarages) {
         if (subGarages == null) {
             this.subGarages = new ArrayList<>();
@@ -25,13 +35,25 @@ public abstract class Garage {
      */
     public abstract void forEach(Consumer<ParkingSlot> slotConsumer);
 
-    // Recursive foreach on subgarages
+    /**
+     *
+     * @param slotConsumer
+     */
     public abstract void forAll(Consumer<ParkingSlot> slotConsumer);
 
+    /**
+     *
+     * @param garageConsumer
+     */
     public void forEachGarage(Consumer<Garage> garageConsumer) {
         subGarages.forEach(garageConsumer);
     }
 
+    /**
+     *
+     * @param garage
+     * @return
+     */
     public boolean containsGarage(Garage garage) {
         if (subGarages.contains(garage)) {
             return true;
@@ -54,34 +76,84 @@ public abstract class Garage {
     public abstract List<ParkingSlot> getEmptyLocations();
 
     /**
-     *
+     * Returns the current value of parkingSlots
      * @return parkingSlots.values();
      */
     public abstract Collection<ParkingSlot> getTotalSpaces();
 
+    /**
+     *
+     * @return
+     */
     public abstract List<ParkingSlot> getUsedSpaces();
 
+    /**
+     *
+     * @param garage
+     */
     public void addGarage(Garage garage) {
         subGarages.add(garage);
     }
 
+    /**
+     *
+     * @param garage
+     */
     public void removeGarage(Garage garage) {
         subGarages.remove(garage);
     }
 
+    /**
+     *
+     * @param car
+     * @return
+     */
     public abstract boolean acceptsCar(Car car);
 
+    /**
+     *
+     * @param car
+     * @param position
+     * @return
+     * @throws ParkingException
+     */
     public abstract Car addCar(Car car, Position position) throws ParkingException;
 
+    /**
+     *
+     * @param position
+     * @return
+     */
     public abstract Car removeCar(Position position);
 
+    /**
+     *
+     * @param car
+     */
     public abstract void removeCar(Car car);
 
+    /**
+     *
+     * @param position
+     * @return
+     */
     public abstract boolean hasPosition(Position position);
 
+    /**
+     *
+     * @return
+     */
     public abstract List<Car> getCars();
 
+    /**
+     *
+     * @return
+     */
     public abstract Collection<ParkingSlot> getParkingSlots();
 
+    /**
+     *
+     * @return
+     */
     public abstract List<Car> removeCars();
 }
