@@ -23,10 +23,10 @@ import java.util.Random;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-
 /**
  * Generic init starting class
  */
+
 public class Main {
 
     private static Simulator simulator;
@@ -48,6 +48,7 @@ public class Main {
      * Generic 'init' method
      * @param args commandline arguments
      */
+
     public static void main(String[] args) throws InterruptedException {
         viewList = new ArrayList<>();
         simulator = new SimulatorImpl(new GarageImpl(SlotUtils.genericRectangular("Test", 6, 5), car -> true));
