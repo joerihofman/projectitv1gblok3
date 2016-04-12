@@ -60,6 +60,11 @@ public class GarageImpl extends Garage {
         return parkingSlots.values();
     }
 
+
+    /**
+     * This method gets the used parking spaces in a list
+     * @return parkingSlots.values().stream().filter()  returns the used parking spaces
+     */
     @Override
     public List<ParkingSlot> getUsedSpaces() {
         return parkingSlots.values().stream().filter(parkingSlot -> !parkingSlot.isEmpty()).collect(Collectors.toList());

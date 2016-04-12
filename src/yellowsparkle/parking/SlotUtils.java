@@ -15,6 +15,9 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 
+/**
+ * Utility class for parkingslots
+ */
 public class SlotUtils {
     private static DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
     private static DocumentBuilder dBuilder;
@@ -28,10 +31,27 @@ public class SlotUtils {
     }
 
 
+    /**
+     * Generates a rectangular field of parking slots
+     * @param building Building name for position
+     * @param rows Row size
+     * @param places Amount of places per row
+     * @return List of parkingSlots generated
+     */
     public static List<ParkingSlot> genericRectangular(String building, int rows, int places) {
         return genericRectangular(building, rows, places, 0, 0);
     }
 
+    /**
+     * Generates a rectangular field of parking slots
+     * With render position offsets
+     * @param building Building name for position
+     * @param rows Row size
+     * @param places Amount of places per row
+     * @param offsetX X coordinate offset
+     * @param offsetY Y coordinate offset
+     * @return List of parkingSlots generated
+     */
     public static List<ParkingSlot> genericRectangular(String building, int rows, int places, int offsetX, int offsetY) {
         assert rows > 0 && places > 0;
         List<ParkingSlot> list = new ArrayList<>();
@@ -62,6 +82,12 @@ public class SlotUtils {
         return root;
     }
 
+    /**
+     * Converts list of parkingSlots to an XML garage
+     * @param parkingSlots List of parkingSlots to convert
+     * @return XML Document that was generated
+     * @throws ParserConfigurationException
+     */
     public static Document toXML(List<ParkingSlot> parkingSlots) throws ParserConfigurationException {
         Document doc = dBuilder.newDocument();
         Element garage = doc.createElement("garage");
@@ -70,12 +96,26 @@ public class SlotUtils {
         return doc;
     }
 
+
+    /**
+     * Converts garage to an XML garage
+     * @param garage garage to convert
+     * @return XML Document that was generated
+     */
     public static Document toXML(Garage garage) {
         Document doc = dBuilder.newDocument();
         doc.appendChild(garageToElement(doc, garage));
         return doc;
     }
 
+    /**
+     * Converts XML to a garage
+     * @param xml XML to convert
+     * @param carPredicate Entry predicate for the garage
+     * @return Generated garage
+     * @throws IOException
+     * @throws SAXException
+     */
     public static Garage garageFromXML(String xml, Predicate<Car> carPredicate) throws IOException, SAXException {
         Document doc = dBuilder.parse(new ByteArrayInputStream(xml.getBytes()));
         return parseGarageTags(doc.getElementsByTagName("garage").item(0), carPredicate);
@@ -95,6 +135,13 @@ public class SlotUtils {
         return garage;
     }
 
+    /**
+     * Converts XML to a ParkingSlot list
+     * @param xml XML to convert
+     * @return List of parkingslots
+     * @throws IOException
+     * @throws SAXException
+     */
     public static List<ParkingSlot> slotsFromXML(String xml) throws IOException, SAXException {
         Document doc = dBuilder.parse(new ByteArrayInputStream(xml.getBytes()));
         List<ParkingSlot> slots = new ArrayList<>();
