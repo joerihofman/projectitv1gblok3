@@ -1,3 +1,9 @@
+/**
+ * @author ITV1G Group 1
+ * @version 1.0
+ * @since 31/3/16
+ */
+
 package yellowsparkle.parking.model;
 
 import yellowsparkle.parking.simulation.ParkingException;
@@ -11,6 +17,10 @@ public abstract class Garage {
 
     protected List<Garage> subGarages;
 
+    /**
+     *
+     * @param subGarages
+     */
     public Garage(List<Garage> subGarages) {
         if (subGarages == null) {
             this.subGarages = new ArrayList<>();
@@ -50,7 +60,7 @@ public abstract class Garage {
     public abstract List<ParkingSlot> getEmptyLocations();
 
     /**
-     *
+     * Returns the current value of parkingSlots
      * @return parkingSlots.values();
      */
     public abstract Collection<ParkingSlot> getTotalSpaces();
