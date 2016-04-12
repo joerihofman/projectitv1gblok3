@@ -19,7 +19,7 @@ public abstract class Garage {
      */
     protected List<Garage> subGarages;
 
-    /**
+    /**.
      *
      * @param subGarages
      */
