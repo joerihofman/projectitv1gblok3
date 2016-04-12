@@ -30,6 +30,25 @@ public abstract class Garage {
     }
 
     /**
+     * Finds the deepest level garage a car is allowed into
+     * @param car Car to find a garage for
+     * @return Deepest level garage that accepts the garage
+     */
+    public Garage acceptingSubGarage(Car car) {
+        final Garage[] g = new Garage[1];
+        forEachGarage(garage -> g[0] = garage.acceptingSubGarage(car));
+        if (g[0] != null) {
+            return g[0];
+        } else {
+            if (acceptsCar(car) && getEmptyLocations().size() > 0) {
+                return this;
+            } else {
+                return null;
+            }
+        }
+    }
+
+    /**
      * Iterates over slots in this garage
      * @param slotConsumer Consumer for slots.
      */
@@ -156,4 +175,6 @@ public abstract class Garage {
      * @return
      */
     public abstract List<Car> removeCars();
+
+    public abstract Collection<ParkingSlot> getParkingAllSlots();
 }

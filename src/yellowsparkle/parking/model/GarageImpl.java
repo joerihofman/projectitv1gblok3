@@ -105,4 +105,11 @@ public class GarageImpl extends Garage {
     public List<Car> removeCars() {
         return parkingSlots.values().stream().map(ParkingSlot::removeCar).collect(Collectors.toList());
     }
+
+    @Override
+    public Collection<ParkingSlot> getParkingAllSlots() {
+        List<ParkingSlot> slots = new ArrayList<>();
+        forAll(slots::add);
+        return slots;
+    }
 }

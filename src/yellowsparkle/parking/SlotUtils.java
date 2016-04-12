@@ -29,11 +29,15 @@ public class SlotUtils {
 
 
     public static List<ParkingSlot> genericRectangular(String building, int rows, int places) {
+        return genericRectangular(building, rows, places, 0, 0);
+    }
+
+    public static List<ParkingSlot> genericRectangular(String building, int rows, int places, int offsetX, int offsetY) {
         assert rows > 0 && places > 0;
         List<ParkingSlot> list = new ArrayList<>();
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < places; j++) {
-                list.add(new ParkingSlot(new Position(building, 1, i, j, roundUp(i * 35, 70) - 27 * (i%2), j * 25)));
+                list.add(new ParkingSlot(new Position(building, 1, i, j, offsetX + (roundUp(i * 35, 70) - 27 * (i%2)), offsetY + (j * 25))));
             }
         }
 

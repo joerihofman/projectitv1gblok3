@@ -46,57 +46,16 @@ public class SimulatorImpl extends Simulator {
         entryQueue.add(new Car(status -> {
             if (status == Car.Status.PARK && (Main.random.nextInt(128) < 4)) return Car.Status.EXIT_WAIT;
             else return status;
-        }, new Ticket(TicketType.REGULAR)));                 //For now all cars have a REGULAR ticket||||| cuz getRandomTicket breaks cuz of -Reservation-Subscription and coperate parking...
+        }, new Ticket(TicketType.REGULAR)));
 
-        /**
-        * We use boolean isValid to make sure the parking ticket/subscription is still valid.
-        * For now we don't use it but we will get there
-        * */
         for (int i = 0; i < entryPerTick; i++) {
-            if (garage.getTotalSpaces().size() > garage.getUsedSpaces().size()) {
-                Car car = entryQueue.peekFirst();               //peekFirst retrieves the first car in the dequeue.
-                if (car != null) {
-                    boolean isValid = true;
-                    Ticket[] tickets = car.getTickets();        //getTickets retrieves all the information about the ticket
-
-                    /**
-                   * We used a enum for the parking ticket
-                   * Here it checks what kind of parking ticket the car has.
-                   * 7-4-16 11.40 - All the cars has a "REGULAR" ticket for now. This will change.
-                   * */
-                    for(Ticket ticket : tickets) {               //Here it searches randomly for the first empty location in the parking garage
-                        ParkingSlot spot = garage.getRandomEmptyLocation();
-                        switch(ticket.getType()) {               //asks the type of ticket
-                            case REGULAR:
-                                if (spot != null) {
-                                    ticket.setStart(new Date()); //When the car is parked this gives it a date to track how long it's parked
-                                    spot.setCar(car);
-                                    ticketSold++;                //Here it counts the "REGULAR" tickets sold. This is used in the GUI
-                                } else {
-                                    isValid = false;
-                                }
-                            break;
-                            case RESERVATION:                   //Currently breaks it with random ticket type
-                            case SUBSCRIPTION:                  //Currently breaks it with random ticket type
-                                if (spot != null) {
-                                    if (ticket.isValid(now)) {
-                                        spot.setCar(car);
-                                    } else {
-                                        isValid = false;
-                                    }
-                                } else {
-                                    isValid = false;
-                                }
-                                break;
-                            case CORPORATE_PARKING:             //Currently breaks it with random ticket type
-                                break;
-                        }
-                    }
-                    if (isValid) {
-                        entryQueue.removeFirst(); //removes car from queueu
-                    } else {
-                        entryQueue.addFirst(car);
-                    }
+            Car car = entryQueue.peekFirst();               //peekFirst retrieves the first car in the dequeue.
+            if (car != null) {
+                Garage targetGarage = this.garage.acceptingSubGarage(car);
+                ParkingSlot randomEmptyLocation = targetGarage.getRandomEmptyLocation();
+                if (randomEmptyLocation != null) {
+                    randomEmptyLocation.setCar(car);
+                    entryQueue.removeFirst();
                 }
             }
         }

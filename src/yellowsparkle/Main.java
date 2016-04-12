@@ -11,7 +11,6 @@ import yellowsparkle.view.GUI;
 import yellowsparkle.view.View;
 import yellowsparkle.view.types.*;
 
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -54,7 +53,7 @@ public class Main {
         simulator = new SimulatorImpl(garage);
         random = new Random();
 
-        garage.addGarage(new GarageImpl(SlotUtils.genericRectangular("Test2", 6, 5), car -> true));
+        garage.addGarage(new GarageImpl(SlotUtils.genericRectangular("Test2", 6, 5, 250, 0), car -> true));
 
         try {
             Document test = SlotUtils.toXML(garage);
@@ -97,7 +96,7 @@ public class Main {
                     ((UsedSlotListAcceptor) view).setUsedSlotList(simulator.getGarage().getUsedSpaces());
                 }
                 if (view instanceof ParkingSlotCollectionAcceptor) {
-                    ((ParkingSlotCollectionAcceptor) view).setParkingSlotCollection(simulator.getGarage().getParkingSlots());
+                    ((ParkingSlotCollectionAcceptor) view).setParkingSlotCollection(simulator.getGarage().getParkingAllSlots());
                 }
                 view.tick();
             });
