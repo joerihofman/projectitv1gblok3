@@ -24,10 +24,65 @@ public class ImagePanel extends ViewPanel implements ParkingSlotCollectionAccept
             carImage = ImageIO.read(this.getClass().getClassLoader().getResource("car.png"));
         } catch (IOException ex) {
             ex.printStackTrace(); /** handle exception... */
-
         }
     }
 
+    /**
+     * This information is from the xml format
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     * @param g This fills in the x and y rendering in the parking spots simulation
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
