@@ -1,6 +1,4 @@
-package yellowsparkle;
-
-import yellowsparkle.view.View;
+package yellowsparkle.view;
 
 import javax.swing.*;
 

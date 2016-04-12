@@ -1,6 +1,8 @@
 package yellowsparkle;
 
-import yellowsparkle.parking.SlotGenerator;
+import org.w3c.dom.Document;
+import yellowsparkle.parking.SlotUtils;
+import yellowsparkle.parking.model.Car;
 import yellowsparkle.parking.model.GarageImpl;
 import yellowsparkle.parking.simulation.ParkingException;
 import yellowsparkle.parking.simulation.Simulator;
@@ -9,9 +11,17 @@ import yellowsparkle.view.GUI;
 import yellowsparkle.view.View;
 import yellowsparkle.view.types.*;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 
 /**
@@ -24,14 +34,13 @@ public class Main {
     public static boolean exit;
     public static boolean pause;
     private static ArrayList<View> viewList;
+    private static Loop loop;
     private static Consumer<Void> resetCallback = aVoid -> {if (simulator != null) simulator.reset();};
     private static Consumer<Integer> tickCallback = new Consumer<Integer>() {
         @Override
         public void accept(Integer integer) {
-            if (simulator != null) try {
-                simulator.tick(integer);
-            } catch (ParkingException e) {
-                e.printStackTrace();
+            if (loop != null) {
+                loop.preparedTicks += integer;
             }
         }};
 
@@ -41,14 +50,32 @@ public class Main {
      */
     public static void main(String[] args) throws InterruptedException {
         viewList = new ArrayList<>();
-        simulator = new SimulatorImpl(new GarageImpl(SlotGenerator.genericRectangular("Test", 6, 5)));
+        simulator = new SimulatorImpl(new GarageImpl(SlotUtils.genericRectangular("Test", 6, 5), car -> true));
         random = new Random();
 
-        Thread simulationThread = new Thread(new Loop());
+        try {
+            Document test = SlotUtils.toXML(SlotUtils.genericRectangular("Test", 6, 5));
+            DOMSource domSource = new DOMSource(test);
+            StringWriter writer = new StringWriter();
+            StreamResult result = new StreamResult(writer);
+            TransformerFactory tf = TransformerFactory.newInstance();
+            Transformer transformer = tf.newTransformer();
+            transformer.transform(domSource, result);
+            System.out.println(writer.toString());
+        } catch (ParserConfigurationException | TransformerException e) {
+            e.printStackTrace();
+        }
+
+        loop = new Loop();
+        Thread simulationThread = new Thread(loop);
         simulationThread.start();
 
         addView(GUI.init());
+        guiLoop();
+        System.exit(0);
+    }
 
+    public static void guiLoop() {
         while(!exit) {
             viewList.forEach(view -> {
                 if (view instanceof EmptySlotListAcceptor) {
@@ -72,7 +99,6 @@ public class Main {
                 view.tick();
             });
         }
-        System.exit(0);
     }
 
     public static void addView(View view) {
@@ -86,7 +112,7 @@ public class Main {
     }
 
     private static class Loop implements Runnable {
-
+        private int preparedTicks;
         @Override
         public void run() {
             while(!exit) {
@@ -98,7 +124,11 @@ public class Main {
                     }
                 }
                 try {
-                    Thread.sleep(250);
+                    if (preparedTicks > 0) {
+                        preparedTicks--;
+                    } else {
+                        Thread.sleep(250);
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                     exit = true;

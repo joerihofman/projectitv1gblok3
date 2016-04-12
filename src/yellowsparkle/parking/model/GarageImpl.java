@@ -1,18 +1,26 @@
 package yellowsparkle.parking.model;
 
 import yellowsparkle.Main;
+import yellowsparkle.parking.simulation.ParkingException;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class GarageImpl extends Garage {
     private HashMap<Position, ParkingSlot> parkingSlots;
+    private Predicate<Car> carPredicate;
 
+    public GarageImpl(List<ParkingSlot> slots, Predicate<Car> carPredicate) {
+        this(slots, carPredicate, null);
+    }
 
-    public GarageImpl(List<ParkingSlot> slots) {
+    public GarageImpl(List<ParkingSlot> slots, Predicate<Car> carPredicate, List<Garage> subGarages) {
+        super(subGarages);
+        this.carPredicate = carPredicate;
         this.parkingSlots = new HashMap<>();
         slots.forEach(parkingSlot -> parkingSlots.put(parkingSlot.getPosition(), parkingSlot));
     }
@@ -20,6 +28,12 @@ public class GarageImpl extends Garage {
     @Override
     public void forEach(Consumer<ParkingSlot> slotConsumer) {
         parkingSlots.values().forEach(slotConsumer);
+    }
+
+    @Override
+    public void forAll(Consumer<ParkingSlot> slotConsumer) {
+        forEach(slotConsumer);
+        subGarages.forEach(garage -> garage.forAll(slotConsumer));
     }
 
     @Override
@@ -48,7 +62,13 @@ public class GarageImpl extends Garage {
     }
 
     @Override
-    public Car addCar(Car car, Position position) {
+    public boolean acceptsCar(Car car) {
+        return carPredicate.test(car);
+    }
+
+    @Override
+    public Car addCar(Car car, Position position) throws ParkingException {
+        if (!carPredicate.test(car)) throw new ParkingException("Car not accepted!");
         return parkingSlots.get(position).setCar(car);
     }
 

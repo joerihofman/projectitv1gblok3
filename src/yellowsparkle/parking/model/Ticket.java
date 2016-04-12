@@ -9,7 +9,7 @@ public class Ticket {
     private Date exit;
 
     public Ticket(TicketType type) {
-        this(type, new Date(0));
+        this(type, new Date(0), new Date(0));
     }
 
     /**

@@ -1,7 +1,7 @@
 package yellowsparkle.parking.simulation;
 
 public class ParkingException extends Exception {
-    ParkingException(String message) {
+    public ParkingException(String message) {
         super(message);
     }
 }

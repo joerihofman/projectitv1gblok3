@@ -1,14 +1,12 @@
 package yellowsparkle.view;
 
-import com.sun.javaws.Globals;
 import yellowsparkle.Main;
 import yellowsparkle.parking.model.ParkingSlot;
-import yellowsparkle.parking.simulation.ParkingException;
 import yellowsparkle.view.types.*;
 
 import javax.swing.*;
-import javax.swing.JPanel;
-import java.awt.event.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -55,7 +53,7 @@ public class GUI implements View, EntryQueueLengthAcceptor, TickCountAcceptor, U
         buttonOnestep.addActionListener(e -> {if (tickCallback != null) {tickCallback.accept(1);}});
 
         //100 steps button extra
-        buttonHundredsteps.addActionListener(e -> {if (tickCallback != null) {tickCallback.accept(1);}});
+        buttonHundredsteps.addActionListener(e -> {if (tickCallback != null) {tickCallback.accept(100);}});
     }
 
     public void tick() {

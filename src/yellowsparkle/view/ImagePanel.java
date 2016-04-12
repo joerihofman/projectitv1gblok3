@@ -1,6 +1,5 @@
 package yellowsparkle.view;
 
-import yellowsparkle.ViewPanel;
 import yellowsparkle.parking.model.ParkingSlot;
 import yellowsparkle.view.types.ParkingSlotCollectionAcceptor;
 
