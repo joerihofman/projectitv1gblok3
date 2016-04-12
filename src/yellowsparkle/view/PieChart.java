@@ -8,7 +8,9 @@ import java.awt.*;
 import java.util.Collection;
 import java.util.List;
 
-
+/**
+ * This class is for the pie chart in the gui. So you can see in a pie chart the amount of places occupied
+r */
 public class PieChart extends ViewPanel implements ParkingSlotCollectionAcceptor, UsedSlotListAcceptor {
     private Collection<ParkingSlot> parkingSlotCollection;
     private List<ParkingSlot> usedSpaces;
@@ -39,6 +41,11 @@ public class PieChart extends ViewPanel implements ParkingSlotCollectionAcceptor
         this.usedSpaces = usedSlotList;
     }
 
+    /**
+     *
+     * @param parkingSlotCollection is a collection for all the parking slots
+     *
+     */
     @Override
     public void setParkingSlotCollection(Collection<ParkingSlot> parkingSlotCollection) {
         this.parkingSlotCollection = parkingSlotCollection;
