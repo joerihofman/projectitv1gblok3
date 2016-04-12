@@ -2,7 +2,7 @@ package yellowsparkle;
 
 import org.w3c.dom.Document;
 import yellowsparkle.parking.SlotUtils;
-import yellowsparkle.parking.model.Car;
+import yellowsparkle.parking.model.Garage;
 import yellowsparkle.parking.model.GarageImpl;
 import yellowsparkle.parking.simulation.ParkingException;
 import yellowsparkle.parking.simulation.Simulator;
@@ -21,7 +21,6 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 
 /**
@@ -50,11 +49,14 @@ public class Main {
      */
     public static void main(String[] args) throws InterruptedException {
         viewList = new ArrayList<>();
-        simulator = new SimulatorImpl(new GarageImpl(SlotUtils.genericRectangular("Test", 6, 5), car -> true));
+        Garage garage = new GarageImpl(SlotUtils.genericRectangular("Test", 6, 5), car -> true);
+        simulator = new SimulatorImpl(garage);
         random = new Random();
 
+        garage.addGarage(new GarageImpl(SlotUtils.genericRectangular("Test2", 6, 5), car -> true));
+
         try {
-            Document test = SlotUtils.toXML(SlotUtils.genericRectangular("Test", 6, 5));
+            Document test = SlotUtils.toXML(garage);
             DOMSource domSource = new DOMSource(test);
             StringWriter writer = new StringWriter();
             StreamResult result = new StreamResult(writer);
@@ -62,7 +64,7 @@ public class Main {
             Transformer transformer = tf.newTransformer();
             transformer.transform(domSource, result);
             System.out.println(writer.toString());
-        } catch (ParserConfigurationException | TransformerException e) {
+        } catch (TransformerException e) {
             e.printStackTrace();
         }
 

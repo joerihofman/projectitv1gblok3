@@ -19,6 +19,10 @@ public abstract class Garage {
         }
     }
 
+    /**
+     * Iterates over slots in this garage
+     * @param slotConsumer Consumer for slots.
+     */
     public abstract void forEach(Consumer<ParkingSlot> slotConsumer);
 
     // Recursive foreach on subgarages
