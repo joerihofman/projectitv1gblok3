@@ -14,9 +14,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public abstract class Garage {
-    /**
-     *
-     */
+
     protected List<Garage> subGarages;
 
     /**.
@@ -32,8 +30,8 @@ public abstract class Garage {
     }
 
     /**
-     *
-     * @param slotConsumer
+     * Iterates over slots in this garage
+     * @param slotConsumer Consumer for slots.
      */
     public abstract void forEach(Consumer<ParkingSlot> slotConsumer);
 
@@ -41,7 +39,6 @@ public abstract class Garage {
      *
      * @param slotConsumer
      */
-    // Recursive foreach on subgarages
     public abstract void forAll(Consumer<ParkingSlot> slotConsumer);
 
     /**

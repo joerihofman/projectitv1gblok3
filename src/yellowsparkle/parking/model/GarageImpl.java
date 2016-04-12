@@ -3,6 +3,7 @@ package yellowsparkle.parking.model;
 import yellowsparkle.Main;
 import yellowsparkle.parking.simulation.ParkingException;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +26,9 @@ public class GarageImpl extends Garage {
         slots.forEach(parkingSlot -> parkingSlots.put(parkingSlot.getPosition(), parkingSlot));
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public void forEach(Consumer<ParkingSlot> slotConsumer) {
         parkingSlots.values().forEach(slotConsumer);
