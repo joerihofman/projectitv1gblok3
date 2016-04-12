@@ -9,6 +9,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Collection;
 
+/**
+ * GUI Component to render parking slots
+ */
 public class ImagePanel extends ViewPanel implements ParkingSlotCollectionAcceptor {
     private BufferedImage parkImage;
     private BufferedImage carImage;
@@ -94,6 +97,10 @@ public class ImagePanel extends ViewPanel implements ParkingSlotCollectionAccept
         });
     }
 
+    /**
+     * Hook for parking slot collection
+     * @param parkingSlotCollection new parking slot collection
+     */
     @Override
     public void setParkingSlotCollection(Collection<ParkingSlot> parkingSlotCollection) {
         this.parkingSlotCollection = parkingSlotCollection;
