@@ -17,7 +17,7 @@ public class PieChart extends ViewPanel implements ParkingSlotCollectionAcceptor
 
 
     /**
-     *
+     * This method creates the piechart for the GUI.
      * @param g is used to set the color of the pie chart
      */
     @Override

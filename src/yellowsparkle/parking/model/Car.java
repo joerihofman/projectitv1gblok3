@@ -1,4 +1,5 @@
 /**
+ * This class makes the car with all it's components for the simulation.
  * @author ITV1G Group 1
  * @version 1.0
  * @since 4/4/16
@@ -43,7 +44,7 @@ public class Car {
 
     /**
      * returns the type of tickets
-     * @return tickets type
+     * @return tickets ticket type
      */
     public Ticket[] getTickets() {
         return tickets;
@@ -51,7 +52,7 @@ public class Car {
 
     /**
      * Returns the value of status
-     * @return the value of status
+     * @return status the value of status
      */
     public Status getStatus() {
         return status;
