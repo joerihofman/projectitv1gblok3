@@ -1,3 +1,9 @@
+/**
+ * @author ITV1G Group 1
+ * @version 1.0
+ * @since 12/4/16
+ */
+
 package yellowsparkle.view;
 
 import javax.swing.*;
