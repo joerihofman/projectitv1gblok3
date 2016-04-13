@@ -7,6 +7,9 @@
 
 package yellowsparkle.parking.model;
 
+/**
+ * Car object to hold data on cars parked
+ */
 public class Car {
     private Ticket[] tickets;
     private Status status;
@@ -15,7 +18,7 @@ public class Car {
 
     /**
      * Constructor for objects of class Car
-     * @param decision makes a decision, exit, enter etc...
+     * @param decision CardDecision that updates the status
      * @param tickets Gives the type of ticket the car has
      */
     public Car(CarDecision decision, Ticket... tickets) {
