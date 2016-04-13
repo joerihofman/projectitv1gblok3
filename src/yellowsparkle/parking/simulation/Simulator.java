@@ -3,17 +3,21 @@ package yellowsparkle.parking.simulation;
 import yellowsparkle.parking.model.Garage;
 
 /**
- * This is an abstract class
+ * Abstract superclass for Simulators
+ * @author ITV1G Group 1
+ * @version 1.0
  */
 public abstract class Simulator {
     /**
-     * @throws ParkingException When the car has NULL input.
+     * Update this simulator 1 tick
      */
-    public abstract void tick() throws ParkingException;
-
-    public abstract void tick(int ticks) throws ParkingException;
+    public abstract void tick();
 
 
+    /**
+     * Gets the garage used in this simulator
+     * @return garage in the simulator
+     */
     public abstract Garage getGarage();
 
     /**

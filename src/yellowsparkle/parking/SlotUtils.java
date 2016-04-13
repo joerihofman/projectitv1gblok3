@@ -16,8 +16,11 @@ import java.util.function.Predicate;
 
 
 /**
- * Utility class for parkingslots
+ * Utility class for parkingSlot operations
+ * @author ITV1G Group 1
+ * @version 1.0
  */
+
 public class SlotUtils {
     private static DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
     private static DocumentBuilder dBuilder;

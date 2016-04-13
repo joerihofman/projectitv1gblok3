@@ -13,11 +13,13 @@
 * that accompanied this code).
 */
 
-package yellowsparkle.view;
+package yellowsparkle.gui;
 
 import yellowsparkle.Main;
+import yellowsparkle.gui.types.controller.ResetCallback;
+import yellowsparkle.gui.types.controller.TickCallback;
+import yellowsparkle.gui.types.view.*;
 import yellowsparkle.parking.model.ParkingSlot;
-import yellowsparkle.view.types.*;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
@@ -29,7 +31,6 @@ import java.util.function.Consumer;
  * This class creates the user interface of the programme. It contains
  * a method to create the GUI, a method to "tick" the programme and
  * several methods that are being used while the programme is running.
- *
  * @author ITV1G Group 1
  * @version 1.0
  */

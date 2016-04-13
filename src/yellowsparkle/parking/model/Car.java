@@ -1,14 +1,9 @@
+package yellowsparkle.parking.model;
+
 /**
  * This class makes the car with all it's components for the simulation.
  * @author ITV1G Group 1
  * @version 1.0
- * @since 4/4/16
- */
-
-package yellowsparkle.parking.model;
-
-/**
- * Car object to hold data on cars parked
  */
 public class Car {
     private Ticket[] tickets;

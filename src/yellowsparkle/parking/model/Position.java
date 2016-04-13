@@ -1,7 +1,10 @@
 package yellowsparkle.parking.model;
 
 /**
- * Position object used to point at a specific parking space
+ * Position object to refer to a position and it's rendering position in ImagePanels
+ * Note that render position is ignored while comparing two Position objects
+ * @author ITV1G Group 1
+ * @version 1.0
  */
 public class Position {
     private final String building;

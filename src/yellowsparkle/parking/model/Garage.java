@@ -1,19 +1,15 @@
-/**
- * This class is used for the garages
- * @author ITV1G Group 1
- * @version 1.0
- * @since 31/3/16
- */
-
 package yellowsparkle.parking.model;
-
-import yellowsparkle.parking.simulation.ParkingException;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Consumer;
 
+/**
+ * This class is used for the garages
+ * @author ITV1G Group 1
+ * @version 1.0
+ */
 public abstract class Garage {
 
     protected List<Garage> subGarages;
@@ -131,29 +127,6 @@ public abstract class Garage {
      * @see GarageImpl
      */
     public abstract boolean acceptsCar(Car car);
-
-    /**
-     * This method adds a car in a parking spot
-     * @param car       the car
-     * @param position  the position of the car in the garage
-     * @throws ParkingException
-     * @see GarageImpl
-     */
-    public abstract Car addCar(Car car, Position position) throws ParkingException;
-
-    /**
-     * This method activates the method removeCar with it's position
-     * @param position  the position of the car
-     * @see GarageImpl
-     */
-    public abstract Car removeCar(Position position);
-
-    /**
-     * This method activates the method removeCar with it's car value
-     * @param car   the car
-     * @see GarageImpl
-     */
-    public abstract void removeCar(Car car);
 
     /**
      * This method activates the method hasPosition

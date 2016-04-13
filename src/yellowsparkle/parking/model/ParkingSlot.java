@@ -1,7 +1,9 @@
 package yellowsparkle.parking.model;
 
 /**
- * This class checks the parking spot for cars.
+ * Parking slot class to model parking spots
+ * @author ITV1G Group 1
+ * @version 1.0
  */
 public class ParkingSlot {
     private Position position;

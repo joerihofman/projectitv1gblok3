@@ -1,15 +1,16 @@
 package yellowsparkle;
 
 import org.w3c.dom.Document;
+import yellowsparkle.gui.types.controller.ResetCallback;
+import yellowsparkle.gui.types.controller.TickCallback;
+import yellowsparkle.gui.types.view.*;
 import yellowsparkle.parking.SlotUtils;
 import yellowsparkle.parking.model.Garage;
 import yellowsparkle.parking.model.GarageImpl;
-import yellowsparkle.parking.simulation.ParkingException;
 import yellowsparkle.parking.simulation.Simulator;
 import yellowsparkle.parking.simulation.SimulatorImpl;
-import yellowsparkle.view.GUI;
-import yellowsparkle.view.View;
-import yellowsparkle.view.types.*;
+import yellowsparkle.gui.GUI;
+import yellowsparkle.gui.View;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -119,11 +120,7 @@ public class Main {
         public void run() {
             while(!exit) {
                 if (!pause) {
-                    try {
-                        simulator.tick();   // TODO: Deal with parking exceptions
-                    } catch (ParkingException e) {
-                        e.printStackTrace();
-                    }
+                    simulator.tick();   // TODO: Deal with parking exceptions
                 }
                 try {
                     if (preparedTicks > 0) {

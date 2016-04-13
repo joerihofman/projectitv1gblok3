@@ -1,7 +1,7 @@
-package yellowsparkle.view;
+package yellowsparkle.gui;
 
 import yellowsparkle.parking.model.ParkingSlot;
-import yellowsparkle.view.types.ParkingSlotCollectionAcceptor;
+import yellowsparkle.gui.types.view.ParkingSlotCollectionAcceptor;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -11,6 +11,8 @@ import java.util.Collection;
 
 /**
  * GUI Component to render parking slots
+ * @author ITV1G Group 1
+ * @version 1.0
  */
 public class ImagePanel extends ViewPanel implements ParkingSlotCollectionAcceptor {
     private BufferedImage parkImage;

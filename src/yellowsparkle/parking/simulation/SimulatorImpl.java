@@ -11,6 +11,11 @@ import java.util.ArrayDeque;
 import java.util.Date;
 import java.util.Deque;
 
+/**
+ * Default implementation for Simulator
+ * @author ITV1G Group 1
+ * @version 1.0
+ */
 public class SimulatorImpl extends Simulator {
     private Garage garage;
     private final Deque<Car> entryQueue;
@@ -22,6 +27,10 @@ public class SimulatorImpl extends Simulator {
     int ticketSold = 0;
 
 
+    /**
+     * constructor for SimulatorImpl
+     * @param garage garage to simulate on
+     */
     public SimulatorImpl(Garage garage) {
         this.garage = garage;
         entryQueue = new ArrayDeque<>();                        //Deque is for the queues to add/remove one from both sides
@@ -30,10 +39,11 @@ public class SimulatorImpl extends Simulator {
 
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
-    public void tick() throws ParkingException {
-        Date now = new Date();                                  //gives a date with each that arrives
-        System.out.println("TICK: " + tickCount);               //This is for in the command line to see at which tick we are.
+    public void tick() {
         tickCount++;
 
         if (canExit) {
@@ -71,25 +81,24 @@ public class SimulatorImpl extends Simulator {
         });
     }
 
-    @Override
-    public void tick(int ticks) throws ParkingException {
-        for (int i = 0; i < ticks; i++) {
-            tick();
-        }
-    }
-
+    /**
+     * @inheritDoc
+     */
     @Override
     public Garage getGarage() {
         return garage;
     }
 
-    //return the size of the queue
-    @Override
+    /**
+     * @inheritDoc
+     */    @Override
     public int queueLength(){
         return entryQueue.size();
     }
 
-    //this will remove all the cars from array and reset the tickcount to zero
+    /**
+     * @inheritDoc
+     */
     @Override
     public void reset() {
         garage.removeCars(); // removes all cars
@@ -97,24 +106,33 @@ public class SimulatorImpl extends Simulator {
         ticketSold = 0;
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public boolean canExit() {
         return canExit;
     }
 
-    //checks if the car can exit
+    /**
+     * @inheritDoc
+     */
     @Override
     public void setCanExit(boolean canExit) {
         this.canExit = canExit;
     }
 
-    //keeps tracks of total ticks
+    /**
+     * @inheritDoc
+     */
     @Override
     public int getTickCount() {
         return tickCount;
     }
 
-    //returns sold tickets.
+    /**
+     * @inheritDoc
+     */
     @Override
     public int getSoldTickets() {
         return ticketSold;

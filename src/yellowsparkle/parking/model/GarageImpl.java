@@ -1,7 +1,6 @@
 package yellowsparkle.parking.model;
 
 import yellowsparkle.Main;
-import yellowsparkle.parking.simulation.ParkingException;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,14 +10,30 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+/**
+ * Default garage implementation
+ * @author ITV1G Group 1
+ * @version 1.0
+ */
 public class GarageImpl extends Garage {
     private HashMap<Position, ParkingSlot> parkingSlots;
     private Predicate<Car> carPredicate;
 
+    /**
+     * Constructor for garageImpl
+     * @param slots Slots in this garage
+     * @param carPredicate Filter for this garage
+     */
     public GarageImpl(List<ParkingSlot> slots, Predicate<Car> carPredicate) {
         this(slots, carPredicate, null);
     }
 
+    /**
+     * Constructor for garageImpl
+     * @param slots Slots in this garage
+     * @param carPredicate Filter for this garage
+     * @param subGarages Sub-garages for this garage
+     */
     public GarageImpl(List<ParkingSlot> slots, Predicate<Car> carPredicate, List<Garage> subGarages) {
         super(subGarages);
         this.carPredicate = carPredicate;
@@ -34,12 +49,18 @@ public class GarageImpl extends Garage {
         parkingSlots.values().forEach(slotConsumer);
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public void forAll(Consumer<ParkingSlot> slotConsumer) {
         forEach(slotConsumer);
         subGarages.forEach(garage -> garage.forAll(slotConsumer));
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public ParkingSlot getRandomEmptyLocation() {
         List<ParkingSlot> emptyLocations = getEmptyLocations();
@@ -50,11 +71,17 @@ public class GarageImpl extends Garage {
         }
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public List<ParkingSlot> getEmptyLocations() {
         return parkingSlots.values().stream().filter(ParkingSlot::isEmpty).collect(Collectors.toList());
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public Collection<ParkingSlot> getTotalSpaces() {
         return parkingSlots.values();
@@ -62,55 +89,56 @@ public class GarageImpl extends Garage {
 
 
     /**
-     * This method gets the used parking spaces in a list
-     * @return parkingSlots.values().stream().filter()  returns the used parking spaces
+     * @inheritDoc
      */
     @Override
     public List<ParkingSlot> getUsedSpaces() {
         return parkingSlots.values().stream().filter(parkingSlot -> !parkingSlot.isEmpty()).collect(Collectors.toList());
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public boolean acceptsCar(Car car) {
         return carPredicate.test(car);
     }
 
-    @Override
-    public Car addCar(Car car, Position position) throws ParkingException {
-        if (!carPredicate.test(car)) throw new ParkingException("Car not accepted!");
-        return parkingSlots.get(position).setCar(car);
-    }
-
-    @Override
-    public Car removeCar(Position position) {
-        return parkingSlots.get(position).removeCar();
-    }
-
-    @Override
-    public void removeCar(Car car) {
-        parkingSlots.values().stream().filter(parkingSlot -> parkingSlot.getCar() == car).forEach(ParkingSlot::removeCar);
-    }
-
+    /**
+     * @inheritDoc
+     */
     @Override
     public boolean hasPosition(Position position) {
         return parkingSlots.containsKey(position);
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public List<Car> getCars() {
         return parkingSlots.values().stream().map(ParkingSlot::getCar).collect(Collectors.toList());
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public Collection<ParkingSlot> getParkingSlots() {
         return parkingSlots.values();
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public List<Car> removeCars() {
         return parkingSlots.values().stream().map(ParkingSlot::removeCar).collect(Collectors.toList());
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public Collection<ParkingSlot> getParkingAllSlots() {
         List<ParkingSlot> slots = new ArrayList<>();

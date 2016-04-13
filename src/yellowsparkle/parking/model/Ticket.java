@@ -3,7 +3,9 @@ package yellowsparkle.parking.model;
 import java.util.Date;
 
 /**
- * This class creates a regular ticket for entering the parking garage.
+ * Class to model parking tickets
+ * @author ITV1G Group 1
+ * @version 1.0
  */
 public class Ticket {
 
