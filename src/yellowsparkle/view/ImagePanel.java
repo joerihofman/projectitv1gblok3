@@ -18,7 +18,7 @@ public class ImagePanel extends ViewPanel implements ParkingSlotCollectionAccept
     private Collection<ParkingSlot> parkingSlotCollection;
 
     /**
-     * This ImagePanel takes care of the images of the parking garage simulation.
+     * Constructor for ImagePanel
      */
     @SuppressWarnings("ConstantConditions")
     public ImagePanel() {
@@ -31,60 +31,8 @@ public class ImagePanel extends ViewPanel implements ParkingSlotCollectionAccept
     }
 
     /**
-     * This information is from the xml format
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     * @param g This fills in the x and y rendering in the parking spots simulation
+     * Renders the imagePanel
+     * @param g Graphics to render to
      */
     @Override
     protected void paintComponent(Graphics g) {
