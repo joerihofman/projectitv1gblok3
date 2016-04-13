@@ -107,7 +107,7 @@ public abstract class Garage {
 
     /**
      * This method adds a garage
-     * @param garage
+     * @param garage garage
      */
     public void addGarage(Garage garage) {
         subGarages.add(garage);
@@ -115,7 +115,7 @@ public abstract class Garage {
 
     /**
      * This method removes a garage
-     * @param garage
+     * @param garage garage
      */
     public void removeGarage(Garage garage) {
         subGarages.remove(garage);
@@ -137,7 +137,6 @@ public abstract class Garage {
 
     /**
      * This method activates the method getCars
-     * @return
      * @see GarageImpl
      */
     public abstract List<Car> getCars();
@@ -154,5 +153,9 @@ public abstract class Garage {
      */
     public abstract List<Car> removeCars();
 
+    /**
+     * This method gets all parking slots
+     * @see GarageImpl
+     */
     public abstract Collection<ParkingSlot> getParkingAllSlots();
 }
