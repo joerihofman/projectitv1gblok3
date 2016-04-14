@@ -8,5 +8,9 @@ import java.util.function.Consumer;
  * @version 1.0
  */
 public interface ResetCallback {
+    /**
+     * Setter for callback
+     * @param resetCallback Callback to be used
+     */
     void setResetCallback(Consumer<Void> resetCallback);
 }

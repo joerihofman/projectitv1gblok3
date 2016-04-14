@@ -10,5 +10,9 @@ import java.util.Collection;
  * @version 1.0
  */
 public interface ParkingSlotCollectionAcceptor {
+    /**
+     * Acceptor for all parking slots in a garage
+     * @param parkingSlotCollection Collection of all parking slots in a garage.
+     */
     void setParkingSlotCollection(Collection<ParkingSlot> parkingSlotCollection);
 }

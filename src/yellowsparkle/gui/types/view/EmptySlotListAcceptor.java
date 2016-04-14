@@ -10,5 +10,9 @@ import java.util.List;
  * @version 1.0
  */
 public interface EmptySlotListAcceptor {
+    /**
+     * Setter for empty slot list
+     * @param emptySlotList List of empty slots
+     */
     void setEmptySlotList(List<ParkingSlot> emptySlotList);
 }

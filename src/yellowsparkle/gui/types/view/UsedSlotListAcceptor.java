@@ -10,5 +10,9 @@ import java.util.List;
  * @version 1.0
  */
 public interface UsedSlotListAcceptor {
+    /**
+     * Acceptor for used slots in a garage
+     * @param usedSlotList List of used slots in a garage
+     */
     void setUsedSlotList(List<ParkingSlot> usedSlotList);
 }

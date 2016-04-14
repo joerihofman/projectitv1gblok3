@@ -6,5 +6,9 @@ package yellowsparkle.gui.types.view;
  * @version 1.0
  */
 public interface EntryPerTickAcceptor {
+    /**
+     * Acceptor for current entries per tick
+     * @param i Entries per tick
+     */
     void setEntryPerTick(int i);
 }

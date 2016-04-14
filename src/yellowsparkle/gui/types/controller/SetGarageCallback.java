@@ -10,5 +10,9 @@ import java.util.function.Consumer;
  * @version 1.0
  */
 public interface SetGarageCallback {
+    /**
+     * Setter for callback
+     * @param garageCallback Callback to be used
+     */
     void setGarageCallback(Consumer<Garage> garageCallback);
 }

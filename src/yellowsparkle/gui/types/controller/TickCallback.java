@@ -8,5 +8,9 @@ import java.util.function.Consumer;
  * @version 1.0
  */
 public interface TickCallback {
+    /**
+     * Setter for callback
+     * @param tickCallback Callback to be used
+     */
     void setTickCallback(Consumer<Integer> tickCallback);
 }

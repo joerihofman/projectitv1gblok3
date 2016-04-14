@@ -6,5 +6,9 @@ package yellowsparkle.gui.types.view;
  * @version 1.0
  */
 public interface SoldTicketCountAcceptor {
+    /**
+     * Acceptor for sold tickets
+     * @param ticketCount Amount of tickets current sold
+     */
     void setSoldTicketCount(int ticketCount);
 }

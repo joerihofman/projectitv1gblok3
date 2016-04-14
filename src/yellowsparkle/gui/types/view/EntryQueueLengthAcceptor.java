@@ -6,5 +6,9 @@ package yellowsparkle.gui.types.view;
  * @version 1.0
  */
 public interface EntryQueueLengthAcceptor {
+    /**
+     * Acceptor for current entry queue length
+     * @param queueLength Entry queue length
+     */
     void setEntryQueueLength(int queueLength);
 }

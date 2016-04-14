@@ -8,5 +8,9 @@ import java.util.function.Consumer;
  * @version 1.0
  */
 public interface EntryPerTickCallback {
+    /**
+     * Setter for callback
+     * @param entryPerTickCallback Call back to be used
+     */
     void setEntryPerTickCallback(Consumer<Integer> entryPerTickCallback);
 }

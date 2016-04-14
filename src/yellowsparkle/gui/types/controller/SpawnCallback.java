@@ -8,5 +8,9 @@ import java.util.function.Consumer;
  * @version 1.0
  */
 public interface SpawnCallback {
+    /**
+     * Setter for callback
+     * @param spawnCallback Callback to be used
+     */
     void setSpawnCallback(Consumer<Integer> spawnCallback);
 }
