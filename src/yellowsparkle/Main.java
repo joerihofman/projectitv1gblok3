@@ -7,6 +7,7 @@ import yellowsparkle.gui.types.view.*;
 import yellowsparkle.parking.SlotUtils;
 import yellowsparkle.parking.model.Garage;
 import yellowsparkle.parking.model.GarageImpl;
+import yellowsparkle.parking.model.GaragePredicate;
 import yellowsparkle.parking.simulation.Simulator;
 import yellowsparkle.parking.simulation.SimulatorImpl;
 import yellowsparkle.gui.GUI;
@@ -50,11 +51,11 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException {
         viewList = new ArrayList<>();
-        Garage garage = new GarageImpl(SlotUtils.genericRectangular("Test", 6, 5), car -> true);
+        Garage garage = new GarageImpl(SlotUtils.genericRectangular("Test", 30, 25), new GaragePredicate(GaragePredicate.EnumType.ANY));
         simulator = new SimulatorImpl(garage);
         random = new Random();
 
-        garage.addGarage(new GarageImpl(SlotUtils.genericRectangular("Test2", 6, 5, 250, 0), car -> true));
+        garage.addGarage(new GarageImpl(SlotUtils.genericRectangular("Test2", 6, 5, 1200, 0), new GaragePredicate(GaragePredicate.EnumType.CORPORATE_ONLY, "AHOLD")));
 
         try {
             Document test = SlotUtils.toXML(garage);

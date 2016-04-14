@@ -12,17 +12,28 @@ public class Ticket {
     private TicketType type;
     private Date start;
     private Date exit;
+    private String corporation;
 
     public Ticket(TicketType type) {
         this(type, new Date(0), new Date(0));
     }
 
     /**
+     * Creates a ticket with the type and a start date  
+     * @param type  type of the ticket
+     * @param start StartDate of the ticket 
+     */
+    public Ticket(TicketType type, Date start) {
+        this(type, start, (String) null);
+    }
+
+    /**
      * Creates a ticket with the type and a start date
      * @param type  type of the ticket
      * @param start StartDate of the ticket
+     * @param corporation Corporation for corporate tickets.
      */
-    public Ticket(TicketType type, Date start) {
+    public Ticket(TicketType type, Date start, String corporation) {
         this(type, start, new Date(0));
     }
 
@@ -30,15 +41,32 @@ public class Ticket {
      * A check if the ticket is valid
      * @param type Ticket type
      * @param start Start date of the ticket
-     * @param exit Exit date of the ticket
+     * @param end End date of the ticket
      */
-    public Ticket(TicketType type, Date start, Date exit){
+    public Ticket(TicketType type, Date start, Date end) {
+        this(type, start, end, null);
+    }
+
+    /**
+     * A check if the ticket is valid
+     * @param type Ticket type
+     * @param start Start date of the ticket
+     * @param end End date of the ticket
+     * @param corporation Corporation for corporate tickets.
+     */
+    public Ticket(TicketType type, Date start, Date end, String corporation){
         this.type = type;
         if (type != TicketType.REGULAR) {
             this.start = start;
-            this.exit = exit;
-            if (start == null || exit == null) {
+            this.exit = end;
+            if (start == null || end == null) {
                 throw new IllegalArgumentException("Invalid date");
+            }
+            if (type == TicketType.CORPORATE_PARKING) {
+                if (corporation == null) {
+                    throw new IllegalArgumentException("Corporate ticket without corporation!");
+                }
+                this.corporation = corporation;
             }
         }
     }
@@ -80,6 +108,10 @@ public class Ticket {
 
     public void setExit(Date exit) {
         this.exit = exit;
+    }
+
+    public String getCorporation() {
+        return corporation;
     }
 
 

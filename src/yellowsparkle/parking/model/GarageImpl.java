@@ -7,34 +7,18 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-/**
- * Default garage implementation
- * @author ITV1G Group 1
- * @version 1.0
- */
+
 public class GarageImpl extends Garage {
     private HashMap<Position, ParkingSlot> parkingSlots;
-    private Predicate<Car> carPredicate;
+    private GaragePredicate carPredicate;
 
-    /**
-     * Constructor for garageImpl
-     * @param slots Slots in this garage
-     * @param carPredicate Filter for this garage
-     */
-    public GarageImpl(List<ParkingSlot> slots, Predicate<Car> carPredicate) {
+    public GarageImpl(List<ParkingSlot> slots, GaragePredicate carPredicate) {
         this(slots, carPredicate, null);
     }
 
-    /**
-     * Constructor for garageImpl
-     * @param slots Slots in this garage
-     * @param carPredicate Filter for this garage
-     * @param subGarages Sub-garages for this garage
-     */
-    public GarageImpl(List<ParkingSlot> slots, Predicate<Car> carPredicate, List<Garage> subGarages) {
+    public GarageImpl(List<ParkingSlot> slots, GaragePredicate carPredicate, List<Garage> subGarages) {
         super(subGarages);
         this.carPredicate = carPredicate;
         this.parkingSlots = new HashMap<>();
@@ -104,6 +88,7 @@ public class GarageImpl extends Garage {
         return carPredicate.test(car);
     }
 
+
     /**
      * @inheritDoc
      */
@@ -132,8 +117,8 @@ public class GarageImpl extends Garage {
      * @inheritDoc
      */
     @Override
-    public List<Car> removeCars() {
-        return parkingSlots.values().stream().map(ParkingSlot::removeCar).collect(Collectors.toList());
+    public void removeCars() {
+        forEach(ParkingSlot::removeCar);
     }
 
     /**
@@ -144,5 +129,15 @@ public class GarageImpl extends Garage {
         List<ParkingSlot> slots = new ArrayList<>();
         forAll(slots::add);
         return slots;
+    }
+
+    @Override
+    public void removeAllCars() {
+        forAll(ParkingSlot::removeCar);
+    }
+
+    @Override
+    public GaragePredicate getPredicate() {
+        return carPredicate;
     }
 }

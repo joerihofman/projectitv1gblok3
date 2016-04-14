@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Predicate;
+import java.util.concurrent.Exchanger;
 
 
 /**
@@ -80,6 +80,10 @@ public class SlotUtils {
 
     private static Element garageToElement(Document doc, Garage garage) {
         Element root = doc.createElement("garage");
+        if (garage.getPredicate().getType() instanceof GaragePredicate.EnumType) {
+            root.setAttribute("predicateType", ((GaragePredicate.EnumType) garage.getPredicate().getType()).name());
+            root.setAttribute("corporation", garage.getPredicate().getCorporation());
+        }
         garage.forEach(parkingSlot -> root.appendChild(slotToElement(doc, parkingSlot)));
         garage.forEachGarage(g -> root.appendChild(garageToElement(doc, g)));
         return root;
@@ -114,25 +118,34 @@ public class SlotUtils {
     /**
      * Converts XML to a garage
      * @param xml XML to convert
-     * @param carPredicate Entry predicate for the garage
      * @return Generated garage
      * @throws IOException
      * @throws SAXException
      */
-    public static Garage garageFromXML(String xml, Predicate<Car> carPredicate) throws IOException, SAXException {
+    public static Garage garageFromXML(String xml) throws IOException, SAXException {
         Document doc = dBuilder.parse(new ByteArrayInputStream(xml.getBytes()));
-        return parseGarageTags(doc.getElementsByTagName("garage").item(0), carPredicate);
+        return parseGarageTags(doc.getElementsByTagName("garage").item(0));
     }
 
-    private static Garage parseGarageTags(Node node, Predicate<Car> carPredicate) {
+    private static Garage parseGarageTags(Node node) {
         List<ParkingSlot> slots = new ArrayList<>();
         parseSlotTags(slots, node.getChildNodes(), false);
-        Garage garage = new GarageImpl(slots, carPredicate);
+        NamedNodeMap attributes = node.getAttributes();
+        GaragePredicate garagePredicate;
+        try {
+            String predicateType = attributes.getNamedItem("predicateType").getTextContent();
+            String corporation = attributes.getNamedItem("corporation").getTextContent();
+            garagePredicate = new GaragePredicate(GaragePredicate.EnumType.valueOf(predicateType), corporation);
+        } catch (NullPointerException e) {
+            garagePredicate = new GaragePredicate(GaragePredicate.EnumType.ANY);
+        }
+
+        Garage garage = new GarageImpl(slots, garagePredicate);
         NodeList children = node.getChildNodes();
         for (int i = 0; i < children.getLength(); i++) {
             Node child = children.item(i);
             if (Objects.equals(child.getNodeName(), "garage")) {
-                garage.addGarage(parseGarageTags(child, carPredicate));
+                garage.addGarage(parseGarageTags(child));
             }
         }
         return garage;

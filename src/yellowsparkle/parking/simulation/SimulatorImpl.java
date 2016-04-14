@@ -62,10 +62,12 @@ public class SimulatorImpl extends Simulator {
             Car car = entryQueue.peekFirst();               //peekFirst retrieves the first car in the dequeue.
             if (car != null) {
                 Garage targetGarage = this.garage.acceptingSubGarage(car);
-                ParkingSlot randomEmptyLocation = targetGarage.getRandomEmptyLocation();
-                if (randomEmptyLocation != null) {
-                    randomEmptyLocation.setCar(car);
-                    entryQueue.removeFirst();
+                if (targetGarage != null) {
+                    ParkingSlot randomEmptyLocation = targetGarage.getRandomEmptyLocation();
+                    if (randomEmptyLocation != null) {
+                        randomEmptyLocation.setCar(car);
+                        entryQueue.removeFirst();
+                    }
                 }
             }
         }
@@ -101,7 +103,7 @@ public class SimulatorImpl extends Simulator {
      */
     @Override
     public void reset() {
-        garage.removeCars(); // removes all cars
+        garage.removeAllCars(); // removes all cars
         tickCount = 0;       // Resets ticks and sold tickets to 0
         ticketSold = 0;
     }

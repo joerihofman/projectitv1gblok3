@@ -33,7 +33,11 @@ public abstract class Garage {
      */
     public Garage acceptingSubGarage(Car car) {
         final Garage[] g = new Garage[1];
-        forEachGarage(garage -> g[0] = garage.acceptingSubGarage(car));
+        forEachGarage(garage -> {
+            if (g[0] == null){
+                g[0] = garage.acceptingSubGarage(car);
+            }
+        });
         if (g[0] != null) {
             return g[0];
         } else {
@@ -151,11 +155,15 @@ public abstract class Garage {
      * This method activates the method removeCars
      * @see GarageImpl
      */
-    public abstract List<Car> removeCars();
+    public abstract void removeCars();
 
     /**
      * This method gets all parking slots
      * @see GarageImpl
      */
     public abstract Collection<ParkingSlot> getParkingAllSlots();
+
+    public abstract void removeAllCars();
+
+    public abstract GaragePredicate getPredicate();
 }
