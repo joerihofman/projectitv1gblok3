@@ -1,10 +1,7 @@
 package yellowsparkle;
 
 import org.w3c.dom.Document;
-import yellowsparkle.gui.types.controller.EntryPerTickCallback;
-import yellowsparkle.gui.types.controller.ResetCallback;
-import yellowsparkle.gui.types.controller.SpawnCallback;
-import yellowsparkle.gui.types.controller.TickCallback;
+import yellowsparkle.gui.types.controller.*;
 import yellowsparkle.gui.types.view.*;
 import yellowsparkle.parking.SlotUtils;
 import yellowsparkle.parking.model.Garage;
@@ -45,6 +42,7 @@ public class Main {
     };
     private static Consumer<Integer> entryPerTickCallback = integer -> simulator.setEntryPerTick(simulator.getEntryPerTick() + integer);
     private static Consumer<Integer> spawnCarCallback = integer -> simulator.spawn(integer);
+    private static Consumer<Garage> setGarageCallback = garage -> simulator.setGarage(garage);
 
     /**
      * Generic 'init' method
@@ -97,7 +95,7 @@ public class Main {
                     ((TickCountAcceptor) view).setTickCount(simulator.getTickCount());
                 }
                 if (view instanceof UsedSlotListAcceptor) {
-                    ((UsedSlotListAcceptor) view).setUsedSlotList(simulator.getGarage().getUsedSpaces());
+                    ((UsedSlotListAcceptor) view).setUsedSlotList(simulator.getGarage().getAllUsedSpaces());
                 }
                 if (view instanceof ParkingSlotCollectionAcceptor) {
                     ((ParkingSlotCollectionAcceptor) view).setParkingSlotCollection(simulator.getGarage().getParkingAllSlots());
@@ -123,6 +121,9 @@ public class Main {
         }
         if (view instanceof SpawnCallback) {
             ((SpawnCallback) view).setSpawnCallback(spawnCarCallback);
+        }
+        if (view instanceof SetGarageCallback) {
+            ((SetGarageCallback) view).setGarageCallback(setGarageCallback);
         }
     }
 

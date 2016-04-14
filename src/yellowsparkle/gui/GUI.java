@@ -15,17 +15,24 @@
 
 package yellowsparkle.gui;
 
+import org.xml.sax.SAXException;
+import sun.misc.IOUtils;
+import sun.nio.ch.IOUtil;
 import yellowsparkle.Main;
-import yellowsparkle.gui.types.controller.EntryPerTickCallback;
-import yellowsparkle.gui.types.controller.ResetCallback;
-import yellowsparkle.gui.types.controller.SpawnCallback;
-import yellowsparkle.gui.types.controller.TickCallback;
+import yellowsparkle.gui.types.controller.*;
 import yellowsparkle.gui.types.view.*;
+import yellowsparkle.parking.SlotUtils;
+import yellowsparkle.parking.model.Garage;
 import yellowsparkle.parking.model.ParkingSlot;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -36,7 +43,7 @@ import java.util.function.Consumer;
  * @author ITV1G Group 1
  * @version 1.0
  */
-public class GUI implements View, EntryQueueLengthAcceptor, TickCountAcceptor, UsedSlotListAcceptor, EmptySlotListAcceptor, SoldTicketCountAcceptor, TickCallback, ResetCallback, EntryPerTickCallback, SpawnCallback, EntryPerTickAcceptor {
+public class GUI implements View, EntryQueueLengthAcceptor, TickCountAcceptor, UsedSlotListAcceptor, EmptySlotListAcceptor, SoldTicketCountAcceptor, TickCallback, ResetCallback, EntryPerTickCallback, SpawnCallback, EntryPerTickAcceptor, SetGarageCallback {
     private JPanel panel1;
     private JButton buttonReset;
     private JButton buttonHundredsteps;
@@ -65,6 +72,7 @@ public class GUI implements View, EntryQueueLengthAcceptor, TickCountAcceptor, U
     private Consumer<Void> resetCallBack;
     private Consumer<Integer> entryPerTickCallback;
     private Consumer<Integer> spawnCallback;
+    private Consumer<Garage> garageCallback;
 
 
     /**
@@ -91,22 +99,27 @@ public class GUI implements View, EntryQueueLengthAcceptor, TickCountAcceptor, U
         //100 steps button extra
         buttonHundredsteps.addActionListener(e -> tickCallback.accept(100));
 
-        increaseEntryRateButton.addActionListener( e -> entryPerTickCallback.accept(1));
+        increaseEntryRateButton.addActionListener(e -> entryPerTickCallback.accept(1));
 
-        decreaseEntryRateButton.addActionListener( e -> entryPerTickCallback.accept(-1));
+        decreaseEntryRateButton.addActionListener(e -> entryPerTickCallback.accept(-1));
 
-        addXCarsToButton.addActionListener( e -> spawnCallback.accept(25));
+        addXCarsToButton.addActionListener(e -> spawnCallback.accept(25));
+
+        openFileButton.addActionListener(e -> {
+            JFileChooser jFileChooser = new JFileChooser();
+            if (jFileChooser.showOpenDialog(panel1) == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = jFileChooser.getSelectedFile();
+                try {
+                    byte[] bytes = Files.readAllBytes(selectedFile.toPath());
+                    String xml = new String(bytes);
+                    garageCallback.accept(SlotUtils.garageFromXML(xml));
+                } catch (IOException | SAXException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
     }
 
-    /**
-     * This method is used in the GUI to show text in the labels.
-     * Labels are in the tab "textbasedview".
-     * @return labelQueue           shows current queue at the entrance
-     * @return labelTicks           shows how many ticks have passed
-     * @return labelTakenSpaces     shows how many spaces are taken by cars
-     * @return labelFreeSpaces      shows how many spaces are empty
-     * @return labelSoldTickets     shows how many regular tickets are sold
-     */
     public void tick() {
         labelQueue.setText("In the queue there are " + queueLength + " cars");
         labelTicks.setText("There have been " + tickCount + " ticks");
@@ -148,8 +161,7 @@ public class GUI implements View, EntryQueueLengthAcceptor, TickCountAcceptor, U
     }
 
     /**
-     * This method implements the entry queue length method
-     * @param queueLength
+     * @inheritDoc
      */
     @Override
     public void setEntryQueueLength(int queueLength) {
@@ -157,8 +169,7 @@ public class GUI implements View, EntryQueueLengthAcceptor, TickCountAcceptor, U
     }
 
     /**
-     * This method implements the tick count method
-     * @param tickCount
+     * @inheritDoc
      */
     @Override
     public void setTickCount(int tickCount) {
@@ -166,8 +177,7 @@ public class GUI implements View, EntryQueueLengthAcceptor, TickCountAcceptor, U
     }
 
     /**
-     * This method impelments the used parking spaces method
-     * @param usedSlotList
+     * @inheritDoc
      */
     @Override
     public void setUsedSlotList(List<ParkingSlot> usedSlotList) {
@@ -175,8 +185,7 @@ public class GUI implements View, EntryQueueLengthAcceptor, TickCountAcceptor, U
     }
 
     /**
-     * This method implements the empty parking spaces method
-     * @param emptySlotList
+     * @inheritDoc
      */
     @Override
     public void setEmptySlotList(List<ParkingSlot> emptySlotList) {
@@ -184,8 +193,7 @@ public class GUI implements View, EntryQueueLengthAcceptor, TickCountAcceptor, U
     }
 
     /**
-     * This method implements the sold ticket count method
-     * @param ticketCount
+     * @inheritDoc
      */
     @Override
     public void setSoldTicketCount(int ticketCount) {
@@ -193,8 +201,7 @@ public class GUI implements View, EntryQueueLengthAcceptor, TickCountAcceptor, U
     }
 
     /**
-     * This method implements the tick callback method
-     * @param tickCallback
+     * @inheritDoc
      */
     @Override
     public void setTickCallback(Consumer<Integer> tickCallback) {
@@ -202,26 +209,42 @@ public class GUI implements View, EntryQueueLengthAcceptor, TickCountAcceptor, U
     }
 
     /**
-     * This method implements the reset tick callback method
-     * @param resetCallback
+     * @inheritDoc
      */
     @Override
     public void setResetCallback(Consumer<Void> resetCallback) {
         this.resetCallBack = resetCallback;
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public void setEntryPerTickCallback(Consumer<Integer> entryPerTickCallback) {
         this.entryPerTickCallback = entryPerTickCallback;
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public void setSpawnCallback(Consumer<Integer> spawnCallback) {
         this.spawnCallback = spawnCallback;
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public void setEntryPerTick(int i) {
         carCount.setText("Entries per tick: " + i);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void setGarageCallback(Consumer<Garage> garageCallback) {
+        this.garageCallback = garageCallback;
     }
 }

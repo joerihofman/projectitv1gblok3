@@ -23,7 +23,7 @@ public class SimulatorImpl extends Simulator {
     private boolean canExit = true;
     private int tickCount;
     private int entryPerTick = 1;
-    private int exitPerTick = 3;
+    private int exitPerTick = 5;
     private int ticketSold = 0;
 
 
@@ -49,7 +49,14 @@ public class SimulatorImpl extends Simulator {
         if (canExit) {
             for (int i = 0; i < exitPerTick; i++) {
                 ParkingSlot slot = exitQueue.pollFirst();
-                if (slot != null) slot.removeCar();
+                if (slot != null) {
+                    for (Ticket ticket : slot.getCar().getTickets()) {
+                        if (ticket.getType() == TicketType.REGULAR) {
+                            ticketSold++;
+                        }
+                    }
+                    slot.removeCar();
+                }
             }
         }
 
@@ -86,6 +93,14 @@ public class SimulatorImpl extends Simulator {
     @Override
     public Garage getGarage() {
         return garage;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void setGarage(Garage garage) {
+        this.garage = garage;
     }
 
     /**

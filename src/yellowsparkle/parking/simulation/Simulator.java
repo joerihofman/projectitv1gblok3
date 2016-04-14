@@ -21,6 +21,12 @@ public abstract class Simulator {
     public abstract Garage getGarage();
 
     /**
+     * Sets the garage used in this simulator
+     * @param garage Garage to be used in the simulator
+     */
+    public abstract void setGarage(Garage garage);
+
+    /**
      * This will be used to keep track of the length of the queue
      * @return the size of the queue
      */

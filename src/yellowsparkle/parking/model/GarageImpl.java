@@ -131,13 +131,33 @@ public class GarageImpl extends Garage {
         return slots;
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public void removeAllCars() {
         forAll(ParkingSlot::removeCar);
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public GaragePredicate getPredicate() {
         return carPredicate;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public List<ParkingSlot> getAllUsedSpaces() {
+        List<ParkingSlot> usedSpaces = new ArrayList<>();
+        forAll(parkingSlot -> {
+            if (!parkingSlot.isEmpty()) {
+                usedSpaces.add(parkingSlot);
+            }
+        });
+        return usedSpaces;
     }
 }

@@ -163,7 +163,21 @@ public abstract class Garage {
      */
     public abstract Collection<ParkingSlot> getParkingAllSlots();
 
+
+    /**
+     * Remove all cars from the garage and subgarage
+     */
     public abstract void removeAllCars();
 
+    /**
+     * Getter for garagepredicate
+     * @return This garage's garagepredicate
+     */
     public abstract GaragePredicate getPredicate();
+
+    /**
+     * getter for used spaces in this garage and subgarages
+     * @return List of all used spaces
+     */
+    public abstract List<ParkingSlot> getAllUsedSpaces();
 }
