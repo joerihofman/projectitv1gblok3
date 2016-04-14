@@ -15,8 +15,10 @@ import java.util.Collection;
  * @version 1.0
  */
 public class ImagePanel extends ViewPanel implements ParkingSlotCollectionAcceptor {
-    private BufferedImage parkImage;
-    private BufferedImage carImage;
+    public static BufferedImage parkImage = null;
+    public static BufferedImage carImage = null;
+    public static BufferedImage corpImage = null;
+    public static BufferedImage subImage = null;
     private Collection<ParkingSlot> parkingSlotCollection;
 
     /**
@@ -27,6 +29,8 @@ public class ImagePanel extends ViewPanel implements ParkingSlotCollectionAccept
         try {
             parkImage = ImageIO.read(this.getClass().getClassLoader().getResource("park.png"));
             carImage = ImageIO.read(this.getClass().getClassLoader().getResource("car.png"));
+            corpImage = ImageIO.read(this.getClass().getClassLoader().getResource("car_corp.png"));
+            subImage = ImageIO.read(this.getClass().getClassLoader().getResource("car_sub.png"));
         } catch (IOException ex) {
             ex.printStackTrace(); /** handle exception... */
         }
@@ -42,7 +46,9 @@ public class ImagePanel extends ViewPanel implements ParkingSlotCollectionAccept
         parkingSlotCollection.forEach(parkingSlot -> {
             g.drawImage(parkImage, parkingSlot.getPosition().getRenderX(), parkingSlot.getPosition().getRenderY(), null);
             if (!parkingSlot.isEmpty()) {
-                g.drawImage(carImage, parkingSlot.getPosition().getRenderX(), parkingSlot.getPosition().getRenderY(), null);
+                g.drawImage(parkingSlot.getCar().getImage(), parkingSlot.getPosition().getRenderX(), parkingSlot.getPosition().getRenderY(), null);
+                char[] chars = String.valueOf(parkingSlot.getCar().getLifespan()).toCharArray();
+                g.drawChars(chars, 0, chars.length, parkingSlot.getPosition().getRenderX(), parkingSlot.getPosition().getRenderY()+12);
             }
         });
     }
