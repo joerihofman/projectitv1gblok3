@@ -49,6 +49,8 @@ public class GUI implements View, EntryQueueLengthAcceptor, TickCountAcceptor, U
     private JLabel labelFreeSpaces;
     private JLabel labelSoldTickets;
     private JPanel pieChart;
+    private JButton increaseEntryRateButton;
+    private JButton addXCarsToButton;
     private int queueLength;
     private int tickCount;
     private List<ParkingSlot> usedSlotList;
