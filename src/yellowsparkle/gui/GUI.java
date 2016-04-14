@@ -50,6 +50,7 @@ public class GUI implements View, EntryQueueLengthAcceptor, TickCountAcceptor, U
     private JLabel labelSoldTickets;
     private JPanel pieChart;
     private JButton increaseEntryRateButton;
+    private JButton decreaseEntryRateButton;
     private JButton addXCarsToButton;
     private int queueLength;
     private int tickCount;
