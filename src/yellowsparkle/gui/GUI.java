@@ -54,6 +54,7 @@ public class GUI implements View, EntryQueueLengthAcceptor, TickCountAcceptor, U
     private JButton increaseEntryRateButton;
     private JButton decreaseEntryRateButton;
     private JButton addXCarsToButton;
+    private JButton openFileButton;
     private JLabel carCount;
     private int queueLength;
     private int tickCount;
