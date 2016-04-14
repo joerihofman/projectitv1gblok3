@@ -24,7 +24,7 @@ public class SimulatorImpl extends Simulator {
     private int tickCount;
     private int entryPerTick = 1;
     private int exitPerTick = 3;
-    int ticketSold = 0;
+    private int ticketSold = 0;
 
 
     /**
@@ -53,10 +53,7 @@ public class SimulatorImpl extends Simulator {
             }
         }
 
-        entryQueue.add(new Car(status -> {
-            if (status == Car.Status.PARK && (Main.random.nextInt(128) < 4)) return Car.Status.EXIT_WAIT;
-            else return status;
-        }, new Ticket(TicketType.REGULAR)));
+        entryQueue.add(CarSpawner.spawnCar());
 
         for (int i = 0; i < entryPerTick; i++) {
             Car car = entryQueue.peekFirst();               //peekFirst retrieves the first car in the dequeue.
@@ -72,7 +69,7 @@ public class SimulatorImpl extends Simulator {
             }
         }
 
-        garage.forEach(parkingSlot -> {
+        garage.forAll(parkingSlot -> {
             if (!parkingSlot.isEmpty()) {
                 parkingSlot.getCar().tick();
                 if (parkingSlot.getCar().getStatus() == Car.Status.EXIT_WAIT) {     //When a car leaves the garages the status is changed to EXIT_WAIT. This is checked here and when it has this status the car will be put in the exit queue.

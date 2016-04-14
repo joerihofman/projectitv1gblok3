@@ -1,5 +1,7 @@
 package yellowsparkle.parking.model;
 
+import java.awt.*;
+
 /**
  * This class makes the car with all it's components for the simulation.
  * @author ITV1G Group 1
@@ -10,14 +12,17 @@ public class Car {
     private Status status;
     private CarDecision decision;
     private int lifespan;
+    private Image image;
 
     /**
      * Constructor for objects of class Car
      * @param decision CardDecision that updates the status
+     * @param image Image to render
      * @param tickets Gives the type of ticket the car has
      */
-    public Car(CarDecision decision, Ticket... tickets) {
+    public Car(CarDecision decision, Image image, Ticket... tickets) {
         this.decision = decision;
+        this.image = image;
         this.tickets = tickets;
         this.lifespan = 0;
         this.status = Status.ENTER;
@@ -62,6 +67,10 @@ public class Car {
      */
     public int getLifespan() {
         return lifespan;
+    }
+
+    public Image getImage() {
+        return image;
     }
 
     /**
