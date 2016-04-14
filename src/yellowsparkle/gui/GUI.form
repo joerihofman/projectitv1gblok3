@@ -116,14 +116,14 @@
                           <text value="Decrease Entry Rate"/>
                         </properties>
                       </component>
-                      <component id="76a35" class="javax.swing.JLabel">
+                      <component id="76a35" class="javax.swing.JLabel" binding="carCount">
                         <constraints>
-                          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
                           <horizontalAlignment value="0"/>
                           <horizontalTextPosition value="0"/>
-                          <text value="Dank memes"/>
+                          <text value="Cars entering per tick:"/>
                         </properties>
                       </component>
                       <component id="c328d" class="javax.swing.JButton" binding="addXCarsToButton" default-binding="true">
@@ -135,7 +135,7 @@
                           </grid>
                         </constraints>
                         <properties>
-                          <text value="Add X Cars  to queue"/>
+                          <text value="Add 25 Cars  to queue"/>
                         </properties>
                       </component>
                     </children>

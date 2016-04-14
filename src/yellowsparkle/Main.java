@@ -1,7 +1,9 @@
 package yellowsparkle;
 
 import org.w3c.dom.Document;
+import yellowsparkle.gui.types.controller.EntryPerTickCallback;
 import yellowsparkle.gui.types.controller.ResetCallback;
+import yellowsparkle.gui.types.controller.SpawnCallback;
 import yellowsparkle.gui.types.controller.TickCallback;
 import yellowsparkle.gui.types.view.*;
 import yellowsparkle.parking.SlotUtils;
@@ -36,13 +38,13 @@ public class Main {
     private static ArrayList<View> viewList;
     private static Loop loop;
     private static Consumer<Void> resetCallback = aVoid -> {if (simulator != null) simulator.reset();};
-    private static Consumer<Integer> tickCallback = new Consumer<Integer>() {
-        @Override
-        public void accept(Integer integer) {
-            if (loop != null) {
-                loop.preparedTicks += integer;
-            }
-        }};
+    private static Consumer<Integer> tickCallback = integer -> {
+        if (loop != null) {
+            loop.preparedTicks += integer;
+        }
+    };
+    private static Consumer<Integer> entryPerTickCallback = integer -> simulator.setEntryPerTick(simulator.getEntryPerTick() + integer);
+    private static Consumer<Integer> spawnCarCallback = integer -> simulator.spawn(integer);
 
     /**
      * Generic 'init' method
@@ -100,6 +102,9 @@ public class Main {
                 if (view instanceof ParkingSlotCollectionAcceptor) {
                     ((ParkingSlotCollectionAcceptor) view).setParkingSlotCollection(simulator.getGarage().getParkingAllSlots());
                 }
+                if (view instanceof EntryPerTickAcceptor) {
+                    ((EntryPerTickAcceptor) view).setEntryPerTick(simulator.getEntryPerTick());
+                }
                 view.tick();
             });
         }
@@ -112,6 +117,12 @@ public class Main {
         }
         if (view instanceof TickCallback) {
             ((TickCallback) view).setTickCallback(tickCallback);
+        }
+        if (view instanceof EntryPerTickCallback) {
+            ((EntryPerTickCallback) view).setEntryPerTickCallback(entryPerTickCallback);
+        }
+        if (view instanceof SpawnCallback) {
+            ((SpawnCallback) view).setSpawnCallback(spawnCarCallback);
         }
     }
 

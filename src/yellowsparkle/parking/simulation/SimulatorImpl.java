@@ -136,4 +136,30 @@ public class SimulatorImpl extends Simulator {
     public int getSoldTickets() {
         return ticketSold;
     }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public Integer getEntryPerTick() {
+        return entryPerTick;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void setEntryPerTick(int i) {
+        entryPerTick = i;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void spawn(int integer) {
+        for (int i = 0; i < integer; i++) {
+            entryQueue.add(CarSpawner.spawnCar());
+        }
+    }
 }

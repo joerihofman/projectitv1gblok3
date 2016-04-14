@@ -16,7 +16,9 @@
 package yellowsparkle.gui;
 
 import yellowsparkle.Main;
+import yellowsparkle.gui.types.controller.EntryPerTickCallback;
 import yellowsparkle.gui.types.controller.ResetCallback;
+import yellowsparkle.gui.types.controller.SpawnCallback;
 import yellowsparkle.gui.types.controller.TickCallback;
 import yellowsparkle.gui.types.view.*;
 import yellowsparkle.parking.model.ParkingSlot;
@@ -34,7 +36,7 @@ import java.util.function.Consumer;
  * @author ITV1G Group 1
  * @version 1.0
  */
-public class GUI implements View, EntryQueueLengthAcceptor, TickCountAcceptor, UsedSlotListAcceptor, EmptySlotListAcceptor, SoldTicketCountAcceptor, TickCallback, ResetCallback {
+public class GUI implements View, EntryQueueLengthAcceptor, TickCountAcceptor, UsedSlotListAcceptor, EmptySlotListAcceptor, SoldTicketCountAcceptor, TickCallback, ResetCallback, EntryPerTickCallback, SpawnCallback, EntryPerTickAcceptor {
     private JPanel panel1;
     private JButton buttonReset;
     private JButton buttonHundredsteps;
@@ -52,6 +54,7 @@ public class GUI implements View, EntryQueueLengthAcceptor, TickCountAcceptor, U
     private JButton increaseEntryRateButton;
     private JButton decreaseEntryRateButton;
     private JButton addXCarsToButton;
+    private JLabel carCount;
     private int queueLength;
     private int tickCount;
     private List<ParkingSlot> usedSlotList;
@@ -59,6 +62,8 @@ public class GUI implements View, EntryQueueLengthAcceptor, TickCountAcceptor, U
     private int ticketCount;
     private Consumer<Integer> tickCallback;
     private Consumer<Void> resetCallBack;
+    private Consumer<Integer> entryPerTickCallback;
+    private Consumer<Integer> spawnCallback;
 
 
     /**
@@ -77,13 +82,19 @@ public class GUI implements View, EntryQueueLengthAcceptor, TickCountAcceptor, U
         });
 
         //Reset button
-        buttonReset.addActionListener(e -> {if (resetCallBack != null) resetCallBack.accept(null);});
+        buttonReset.addActionListener(e -> resetCallBack.accept(null));
 
         //One step button
-        buttonOnestep.addActionListener(e -> {if (tickCallback != null) {tickCallback.accept(1);}});
+        buttonOnestep.addActionListener(e -> tickCallback.accept(1));
 
         //100 steps button extra
-        buttonHundredsteps.addActionListener(e -> {if (tickCallback != null) {tickCallback.accept(100);}});
+        buttonHundredsteps.addActionListener(e -> tickCallback.accept(100));
+
+        increaseEntryRateButton.addActionListener( e -> entryPerTickCallback.accept(1));
+
+        decreaseEntryRateButton.addActionListener( e -> entryPerTickCallback.accept(-1));
+
+        addXCarsToButton.addActionListener( e -> spawnCallback.accept(25));
     }
 
     /**
@@ -196,5 +207,20 @@ public class GUI implements View, EntryQueueLengthAcceptor, TickCountAcceptor, U
     @Override
     public void setResetCallback(Consumer<Void> resetCallback) {
         this.resetCallBack = resetCallback;
+    }
+
+    @Override
+    public void setEntryPerTickCallback(Consumer<Integer> entryPerTickCallback) {
+        this.entryPerTickCallback = entryPerTickCallback;
+    }
+
+    @Override
+    public void setSpawnCallback(Consumer<Integer> spawnCallback) {
+        this.spawnCallback = spawnCallback;
+    }
+
+    @Override
+    public void setEntryPerTick(int i) {
+        carCount.setText("Entries per tick: " + i);
     }
 }

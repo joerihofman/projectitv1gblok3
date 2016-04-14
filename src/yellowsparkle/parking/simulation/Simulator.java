@@ -53,4 +53,22 @@ public abstract class Simulator {
      * @return the total amount of the sold tickets
      */
     public abstract int getSoldTickets();
+
+    /**
+     * Gets the cars entering per tick
+     * @return Cars entering per tick
+     */
+    public abstract Integer getEntryPerTick();
+
+    /**
+     * Sets the cars entering per tick
+     * @param i Cars to enter per tick
+     */
+    public abstract void setEntryPerTick(int i);
+
+    /**
+     * Spawns new cars
+     * @param integer cars to spawn
+     */
+    public abstract void spawn(int integer);
 }

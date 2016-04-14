@@ -8,7 +8,14 @@ import yellowsparkle.parking.model.Ticket;
 import java.awt.image.BufferedImage;
 import java.util.Date;
 
+/**
+ * Car spawner class
+ */
 public class CarSpawner {
+    /**
+     * Creates a new random car
+     * @return Newly created car
+     */
     public static Car spawnCar() {
         Ticket ticket = null;
         BufferedImage image = null;
